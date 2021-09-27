@@ -29,21 +29,21 @@ function App() {
 
   //fetch
   useEffect(()=>{
-    fetch("http://localhost:9393/recruiters")
+    fetch("http://localhost:3000/recruiters")
     .then(res => res.json())
     .then(recruiters => setRecruiterArr(recruiters) )
     .catch(error => console.error('Error:', error))
   },[])
 
   useEffect(()=>{
-    fetch("http://localhost:9393/jobseekers")
+    fetch("http://localhost:3000/jobseekers")
     .then(res => res.json())
     .then(jobseekers => setJobseekerArr(jobseekers) )
     .catch(error => console.error('Error:', error))
   },[])
 
   useEffect(()=>{
-    fetch("http://localhost:9393/events")
+    fetch("http://localhost:3000/events")
     .then(res => res.json())
     .then(events => setEventArr(events) )
     .catch(error => console.error('Error:', error))

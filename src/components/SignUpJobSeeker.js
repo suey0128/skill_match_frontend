@@ -62,7 +62,7 @@ const useStyles = makeStyles((theme) => ({
 
   const handleJobSeekerSignUp = (e) => {
     e.preventDefault();
-    fetch("http://localhost:9393/jobseekers", {
+    fetch("http://localhost:3000/jobseekers", {
     method: 'POST',
     headers:{
       'Content-Type': 'application/json'

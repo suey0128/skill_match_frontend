@@ -46,7 +46,7 @@ function EventsContainer( {userStatus, currentUser, updateUserEvents} ) {
     const classes = useStyles();
 
     useEffect(()=>{
-        fetch("http://localhost:9393/events")
+        fetch("http://localhost:3000/events")
         .then(res => res.json())
         .then(data => console.log(data))
         .catch(error => console.error('Error:', error))
@@ -72,7 +72,7 @@ function EventsContainer( {userStatus, currentUser, updateUserEvents} ) {
             location: eventLocation,
             description: eventDesc
         }
-        fetch("http://localhost:9393/events", {
+        fetch("http://localhost:3000/events", {
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json"
@@ -115,7 +115,7 @@ function EventsContainer( {userStatus, currentUser, updateUserEvents} ) {
             description: eventDesc
         }
 
-        fetch("http://localhost:9393/events", {
+        fetch("http://localhost:3000/events", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -134,7 +134,7 @@ function EventsContainer( {userStatus, currentUser, updateUserEvents} ) {
 
     // when a user clicks on delete - DONE!!
     const handleEventDelete = (event_id) => {
-        fetch("http://localhost:9393/events", {
+        fetch("http://localhost:3000/events", {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json"

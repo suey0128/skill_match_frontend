@@ -44,7 +44,7 @@ function ProfileSkills({userStatus, currentUser, setSkillChange}) {
 
     // delete from server - DONE!!
     const handleDelete = (skill_id) => {
-        fetch("http://localhost:9393/skills", {
+        fetch("http://localhost:3000/skills", {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json"
@@ -76,7 +76,7 @@ function ProfileSkills({userStatus, currentUser, setSkillChange}) {
             name: skillName, 
             level: skillLevel
         }
-        fetch("http://localhost:9393/skills", {
+        fetch("http://localhost:3000/skills", {
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json"
@@ -116,7 +116,7 @@ function ProfileSkills({userStatus, currentUser, setSkillChange}) {
                 user_id: currentUser.id
             }
 
-        fetch("http://localhost:9393/skills", {
+        fetch("http://localhost:3000/skills", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
