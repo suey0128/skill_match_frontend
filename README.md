@@ -68,3 +68,15 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `yarn build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+## Instructions - DRAFT
+Backend / in the skillmatch_backend folder:
+1. 'bundle install'
+2. Create the database with 'rails db:create'
+3. Create tables with 'rails db:migrate '
+4. Seed data with 'rails db:seed' 
+5. Load rails server with 'rails s'
+
+Frontend / in the skillmatch_frontend folder 
+1. 'npm install'
+2. Run app with 'npm start'
