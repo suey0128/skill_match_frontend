@@ -3,6 +3,8 @@
 //npm install @material-ui/icons
 
 import React,{useState} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
+import { setUserStatus, setCurrentUser } from '../mainsSlice';
 import {useHistory} from 'react-router-dom';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
@@ -47,9 +49,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
- function SignUpRecruiter({setUserStatus, currentUser, setCurrentUser}) {
+ function SignUpRecruiter() {
   const classes = useStyles();
-
+  const dispatch = useDispatch();
   const history= useHistory();
 
   const [enterSignUpUsername, setEnterSignUpUsername] = useState("")
@@ -67,13 +69,20 @@ const useStyles = makeStyles((theme) => ({
       headers:{
         'Content-Type': 'application/json'
       },
-      body:JSON.stringify({enterSignUpName,  enterSignUpCompanyName, enterSignUpUsername, enterSignUpLocation, enterSignUpPD, enterSignUpEmail, enterSignUpLogo 
+      body:JSON.stringify({
+        enterSignUpName,  
+        enterSignUpCompanyName, 
+        enterSignUpUsername, 
+        enterSignUpLocation, 
+        enterSignUpPD, 
+        enterSignUpEmail, 
+        enterSignUpLogo 
       })
       })
       .then(res => res.json())
       .then(data => {
-        setCurrentUser(data)
-        setUserStatus("recruiter")
+        dispatch(setCurrentUser(data))
+        dispatch(setUserStatus("recruiter"))
         history.push("/profile")
       })
   }
@@ -194,7 +203,7 @@ const useStyles = makeStyles((theme) => ({
             </Button>
             <Grid container>
               <Grid item xs>
-                <Link variant="body2" onClick={(e)=>setUserStatus("jobseeker")}>
+                <Link variant="body2" onClick={(e)=>dispatch(setUserStatus("jobseeker"))}>
                   {"Job seeker signup"}
                 </Link>
               </Grid>

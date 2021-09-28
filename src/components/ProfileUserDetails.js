@@ -1,4 +1,4 @@
-// import EventsList from './EventsList';
+import {useDispatch, useSelector} from 'react-redux';
 
 function ProfileUserDetails() {
     return (

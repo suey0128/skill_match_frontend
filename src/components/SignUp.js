@@ -1,29 +1,20 @@
-import React, {useState} from "react";
+import React from "react";
+import {useSelector} from 'react-redux';
 import SignUpRecruiter from "./SignUpRecruiter"
 import SignUpJobSeeker from "./SignUpJobSeeker"
 import SignUpInstructions from "./SignUpInstructions"
 
 
 
-function SignUp({userStatus, setUserStatus, currentUser, setCurrentUser}) {
+function SignUp() {
+  const userStatus = useSelector(state => state.userStatus)
 
-  
-
-      if (userStatus === "none") {
-        return <SignUpInstructions setUserStatus={setUserStatus}/>;
-
-      } else if (userStatus === "recruiter") {
-        return <SignUpRecruiter setUserStatus={setUserStatus} 
-                                currentUser={currentUser}
-                                setCurrentUser={setCurrentUser}
-                                />;
-
+    if (userStatus === "none") {
+      return <SignUpInstructions />;
+    } else if (userStatus === "recruiter") {
+      return <SignUpRecruiter />;
     } else {
-      return <SignUpJobSeeker setUserStatus={setUserStatus} 
-                              currentUser={currentUser}
-                              setCurrentUser={setCurrentUser}
-                              />;
-
+      return <SignUpJobSeeker />;
     }
 }
 

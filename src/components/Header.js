@@ -1,10 +1,14 @@
 import {NavLink} from 'react-router-dom';
+import {useDispatch, useSelector} from 'react-redux';
+import { setCurrentUser, setUserStatus } from '../mainsSlice';
 
-function Header( {currentUser, setCurrentUser, setUserStatus} ) {
+function Header() {
+    const dispatch = useDispatch();
+    const currentUser = useSelector(state => state.currentUser);
 
     const handleLogout = () => {
-        setCurrentUser(null)
-        setUserStatus("none") 
+        dispatch(setCurrentUser(null))
+        dispatch(setUserStatus("none"))
     }
 
     return (

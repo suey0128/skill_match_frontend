@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import {useDispatch, useSelector} from 'react-redux';
+import {setUserSkills} from '../mainsSlice'
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { makeStyles, createTheme } from '@material-ui/core/styles';
@@ -32,28 +34,29 @@ const useStyles = makeStyles((theme) => ({
     },
   }));
 
-function ProfileSkills({userStatus, currentUser, setSkillChange}) {
+function ProfileSkills() {
 
-    const [userSkills, setUserSkills] = useState(currentUser.skills)
+    const dispatch = useDispatch();
+    const userStatus = useSelector(state => state.userStatus)
+    const currentUser = useSelector(state => state.currentUser)
+    const userSkills = useSelector(state => state.userSkills)
+
     const [skillView, setSkillView] = useState("view") //"view", "add", "edit"
     const [skillName, setSkillName] = useState("")
     const [skillId, setSkillId] = useState(0)
     const [skillLevel, setSkillLevel] = useState(3)
-
     const classes = useStyles();
 
+    useEffect(() => {
+        dispatch(setUserSkills(currentUser.skills))
+    }, [])
     // delete from server - DONE!!
     const handleDelete = (skill_id) => {
-        fetch("http://localhost:3000/skills", {
+        console.log(skill_id)
+        fetch(`http://localhost:3000/skills/${skill_id}`, {
             method: "DELETE",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                id: skill_id
-            })
         })
-        setUserSkills(userSkills.filter(skill => skill.id !== skill_id))
+        dispatch(setUserSkills(userSkills.filter(skill => skill.id !== skill_id)))
     }
 
     // edit form view - DONE!!
@@ -86,18 +89,19 @@ function ProfileSkills({userStatus, currentUser, setSkillChange}) {
         .then(res => res.json())
         .then(data => 
             {let skill_updated = data.patch_skill;
-            setUserSkills(userSkills.map(skill => {
-                if (skill.id === skill_updated.id) {
-                    return {
-                        id: skill_updated.id,
-                        profile_id: skill_updated.profile_id,
-                        name: skill_updated.name, 
-                        level: skill_updated.level
+                dispatch(setUserSkills(userSkills.map(skill => {
+                    if (skill.id === skill_updated.id) {
+                        return {
+                            id: skill_updated.id,
+                            profile_id: skill_updated.profile_id,
+                            name: skill_updated.name, 
+                            level: skill_updated.level
+                        }
+                    } else {
+                        return skill
                     }
-                } else {
-                    return skill
-                }
-            }))}
+                })))
+            }
         )
         setSkillView("view")
     }
@@ -111,9 +115,9 @@ function ProfileSkills({userStatus, currentUser, setSkillChange}) {
             let new_skill = {
                 name: skillName, 
                 level: skillLevel,
-                profile_id: currentUser.profile_id,
-                user_type: userStatus,
-                user_id: currentUser.id
+                profile_id: currentUser.profile.id,
+                // user_type: userStatus,
+                // user_id: currentUser.id
             }
 
         fetch("http://localhost:3000/skills", {
@@ -121,12 +125,11 @@ function ProfileSkills({userStatus, currentUser, setSkillChange}) {
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify(new_skill)
+            body: JSON.stringify({skill: new_skill})
         })
-        .then(data => console.log(data))
-
-        setUserSkills([...userSkills, new_skill])
-        setSkillChange(true)
+        .then(res => res.json())
+        .then(data => dispatch(setUserSkills([...userSkills, data])))
+        // dispatch(setSkillChange(true))
         setSkillView("view")
         // console.log([...userSkills, new_skill])
     }

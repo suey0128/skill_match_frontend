@@ -1,7 +1,8 @@
-import RecruitersMatchListSkills from "./RecruitersMatchListSkills"
+// import RecruitersMatchListSkills from "./RecruitersMatchListSkills";
+// import {useDispatch, useSelector} from 'react-redux';
 
 function RecruitersMatchList({matchingJobSeeker}) {
-  console.log("matchingJobSeeker", matchingJobSeeker)
+  // console.log("matchingJobSeeker", matchingJobSeeker)
     return (
       <div >
        <li className="RecruitersMatchList">

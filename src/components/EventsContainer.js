@@ -1,5 +1,7 @@
 import EventsList from './EventsList';
 import React, { useState, useEffect } from "react";
+import {useDispatch, useSelector} from 'react-redux';
+import {setUserEvents} from '../mainsSlice';
 import TextField from '@material-ui/core/TextField';
 import { makeStyles, createTheme } from '@material-ui/core/styles';
 
@@ -32,9 +34,15 @@ const useStyles = makeStyles((theme) => ({
     },
   }));
 
-function EventsContainer( {userStatus, currentUser, updateUserEvents} ) {
+function EventsContainer() {
+    const dispatch = useDispatch();
+    // need to use useEffect to fetch events from currentUser 
+    // const [userEvents, setUserEvents] = useState(currentUser.events)
 
-    const [userEvents, setUserEvents] = useState(currentUser.events)
+    const userStatus = useSelector(state => state.userStatus)
+    const currentUser = useSelector(state => state.currentUser)
+    const userEvents = useSelector(state => state.userEvents)
+
     const [eventView, setEventView] = useState("view") //"view", "edit", "add"
     const [eventId, setEventId] = useState(0)
     const [eventName, setEventName] = useState("")
@@ -45,12 +53,9 @@ function EventsContainer( {userStatus, currentUser, updateUserEvents} ) {
 
     const classes = useStyles();
 
-    useEffect(()=>{
-        fetch("http://localhost:3000/events")
-        .then(res => res.json())
-        .then(data => console.log(data))
-        .catch(error => console.error('Error:', error))
-      },[])
+    useEffect(() => {
+        dispatch(setUserEvents(currentUser.events))
+      }, [])
 
     // when a user clicks on edit - DONE!!
     const handleEventEdit = (id, name, date, location, desc) => {
@@ -82,7 +87,7 @@ function EventsContainer( {userStatus, currentUser, updateUserEvents} ) {
         .then(res => res.json())
         .then(data =>
             {let event_updated = data.patch_event;
-            setUserEvents(userEvents.map(event => {
+            dispatch(setUserEvents(userEvents.map(event => {
                 if (event.id === event_updated.id) {
                     return {
                         id: event_updated.id,
@@ -94,7 +99,7 @@ function EventsContainer( {userStatus, currentUser, updateUserEvents} ) {
                 } else {
                     return event
                 }
-            }))}
+            })))}
         )
         setEventView("view")
     }
@@ -124,9 +129,8 @@ function EventsContainer( {userStatus, currentUser, updateUserEvents} ) {
         })
         .then(res => res.json())
         .then(data => {
-            setUserEvents([...userEvents, data.new_event])
+            dispatch(setUserEvents([...userEvents, data.new_event]))
             setEventView("view")
-            updateUserEvents(true)
             console.log([...userEvents, data.new_event])
         })
     }
@@ -147,7 +151,7 @@ function EventsContainer( {userStatus, currentUser, updateUserEvents} ) {
         })
         .then(res => res.json())
         .then(data => console.log(`Deleted, data: ${data}`))
-        setUserEvents(userEvents.filter(event => event.id !== event_id))
+        dispatch(setUserEvents(userEvents.filter(event => event.id !== event_id)))
     }
 
     return (

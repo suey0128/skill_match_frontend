@@ -1,10 +1,11 @@
 import JobSeekersSideBarList from "./JobSeekersSideBarList";
+import {useDispatch, useSelector} from 'react-redux';
 
-function JobSeekersMatchSidebar({currentUser, onSideBarItemClick}) {
+function JobSeekersMatchSidebar() {
+  // const dispatch = useDispatch();
     return (
       <div className="JobSeekersMatchSidebar">
-       <JobSeekersSideBarList currentUser={currentUser} 
-                              onSideBarItemClick={onSideBarItemClick}/>
+       <JobSeekersSideBarList />
       </div>
     );
   }
