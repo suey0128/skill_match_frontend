@@ -36,9 +36,14 @@ function App() {
   },[])
 
   useEffect(()=>{
-    fetch("http://localhost:3000/jobseekers")
+    fetch("http://localhost:3000/job_seekers")
     .then(res => res.json())
-    .then(jobseekers => setJobseekerArr(jobseekers) )
+    .then(jobseekers => {
+      setJobseekerArr(jobseekers) 
+      //hardcoding currentUser as jobseeker id 1
+      setCurrentUser(jobseekers.filter(js => js.id === 1))
+      setUserStatus("jobseeker")
+    })
     .catch(error => console.error('Error:', error))
   },[])
 
@@ -49,7 +54,7 @@ function App() {
     .catch(error => console.error('Error:', error))
   },[])
 
-
+ 
 
   const onHeaderButtonClick = () => {
       setCurrentUser(null)
