@@ -53,12 +53,9 @@ function EventsContainer() {
 
     const classes = useStyles();
 
-    useEffect(()=>{
-        fetch("http://localhost:3000/events")
-        .then(res => res.json())
-        .then(data => console.log(data))
-        .catch(error => console.error('Error:', error))
-      },[])
+    useEffect(() => {
+        dispatch(setUserEvents(currentUser.events))
+      }, [])
 
     // when a user clicks on edit - DONE!!
     const handleEventEdit = (id, name, date, location, desc) => {
