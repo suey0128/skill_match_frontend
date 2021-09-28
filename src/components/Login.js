@@ -4,6 +4,8 @@
 
 //Material UI
 import React, { useState }from 'react';
+import {useDispatch, useSelector} from 'react-redux';
+import { setUserStatus, setCurrentUser } from '../mainsSlice';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -29,7 +31,6 @@ const theme = createTheme({
   },
 });
 
-
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
@@ -50,11 +51,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
- function Login({currentUser, setCurrentUser, setUserStatus, jobseekerArr, recruiterArr}) {
+ function Login() {
   const classes = useStyles();
-
+  const dispatch = useDispatch();
   const history = useHistory();
 
+  const currentUser = useSelector(state => state.currentUser)
+  const jobseekerArr = useSelector(state => state.jobseekerArr)
+  const recruiterArr = useSelector(state => state.recruiterArr)
   const [enterLoginUsername, setEnterLoginUsername] = useState("")
   const [enterLoginPD, setEnterLoginPD] = useState("")
 
@@ -67,14 +71,14 @@ const useStyles = makeStyles((theme) => ({
     
     if (isRecruiter) {
       //set userStatus
-      setUserStatus("recruiter")
+      dispatch(setUserStatus("recruiter"))
       //set currentUser
-      setCurrentUser(isRecruiter)
+      dispatch(setCurrentUser(isRecruiter))
       // console.log("currentUserInAppWhenRecruiterLogin", currentUser, "isRecruiter", isRecruiter)
     } else if (isJobSeeker) {
-      setUserStatus("jobseeker")
+      dispatch(setUserStatus("jobseeker"))
       // console.log("isJobSeeker",isJobSeeker)
-      setCurrentUser(isJobSeeker)
+      dispatch(setCurrentUser(isJobSeeker))
     } else {
       alert("Incorrect username or password, please re-enter.");
     }

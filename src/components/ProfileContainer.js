@@ -3,9 +3,10 @@ import IconButton from "@material-ui/core/IconButton";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import { useState } from "react";
+import {useDispatch, useSelector} from 'react-redux';
 
-function ProfileContainer( {userStatus, currentUser, setSkillChange} ) {
-
+function ProfileContainer() {
+    const currentUser = useSelector(state => state.currentUser)
     const [showPassword, setShowPassword] = useState(false)
 
     console.log(currentUser)
@@ -46,11 +47,7 @@ function ProfileContainer( {userStatus, currentUser, setSkillChange} ) {
             </div>
             <div className="skills-container">
                 <h2>Skills</h2>
-                    <ProfileSkills 
-                        userStatus={userStatus} 
-                        currentUser={currentUser}
-                        setSkillChange={setSkillChange}
-                    />
+                    <ProfileSkills />
             </div>
         </div>
       </div>

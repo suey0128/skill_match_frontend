@@ -4,7 +4,9 @@ import {
   Switch, 
   Route
 } from "react-router-dom";
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
+import {useDispatch, useSelector} from 'react-redux';
+import { setRecruiterArr, setJobseekerArr, setEventArr } from '../mainsSlice';
 
 import SignUp from './SignUp';
 import Login from './Login';
@@ -17,21 +19,16 @@ import EventsContainer from './EventsContainer';
 
 
 function App() {
-  // CREATE STATE FOR THIS:
-  const [userStatus, setUserStatus] = useState("none") //toggle among "none", "recruiter" and "jobseeker"
-  const [currentUser, setCurrentUser] = useState(null)
-  const [recruiterArr, setRecruiterArr] = useState([])
-  const [jobseekerArr, setJobseekerArr] = useState([])
-  const [skillChange, setSkillChange] = useState(false)
-  const [eventArr, setEventArr] = useState([])
-  const [pageChange, setPageChange] = useState(false)
-
+  const dispatch = useDispatch();
+  // dispatch(setUserState(user)) => change state
+  const userStatus = useSelector(state => state.userStatus)
+  console.log(userStatus)
 
   //fetch
   useEffect(()=>{
     fetch("http://localhost:3000/recruiters")
     .then(res => res.json())
-    .then(recruiters => setRecruiterArr(recruiters) )
+    .then(recruiters => dispatch(setRecruiterArr(recruiters)))
     .catch(error => console.error('Error:', error))
   },[])
 
@@ -39,10 +36,10 @@ function App() {
     fetch("http://localhost:3000/job_seekers")
     .then(res => res.json())
     .then(jobseekers => {
-      setJobseekerArr(jobseekers) 
+      dispatch(setJobseekerArr(jobseekers))
       //hardcoding currentUser as jobseeker id 1
-      setCurrentUser(jobseekers.filter(js => js.id === 1))
-      setUserStatus("jobseeker")
+      // setCurrentUser(jobseekers.filter(js => js.id === 1))
+      // setUserStatus("jobseeker")
     })
     .catch(error => console.error('Error:', error))
   },[])
@@ -50,71 +47,36 @@ function App() {
   useEffect(()=>{
     fetch("http://localhost:3000/events")
     .then(res => res.json())
-    .then(events => setEventArr(events) )
+    .then(events => dispatch(setEventArr(events)))
     .catch(error => console.error('Error:', error))
   },[])
-
- 
-
-  const onHeaderButtonClick = () => {
-      setCurrentUser(null)
-  }
-
-  const onUserEventsUpdate = (bool) => {
-    if (bool) {
-      console.log(true)
-    }
-  }
-
-  const onSkillChange = (bool) => {
-    // console.log(bool)
-    if (bool) {
-      console.log(true) 
-    }
-  }
-
 
   return (
     <div className="App">
       <Router>
         {/* <button onClick={history.push("/")}>yo</button> */}
-        <Header currentUser={currentUser}
-                setUserStatus={setUserStatus}
-                setCurrentUser={onHeaderButtonClick}/>
+        <Header />
         <Switch>
           <Route exact path="/">
             <Homepage />
           </Route>
           <Route path="/signup">
-            <SignUp userStatus={userStatus} 
-                    setUserStatus={setUserStatus} 
-                    currentUser={currentUser}
-                    setCurrentUser={setCurrentUser}
-                    />
+            <SignUp />
           </Route>
           <Route path="/login">
-            <Login currentUser={currentUser} setCurrentUser={setCurrentUser} setUserStatus={setUserStatus} jobseekerArr={jobseekerArr} recruiterArr={recruiterArr}/>
+            <Login />
           </Route>
           <Route path="/matches">
             {userStatus === "recruiter" ? 
-              <RecruitersMatchContainer currentUser={currentUser}/> 
+              <RecruitersMatchContainer /> 
               : 
-              <JobSeekersMatchContainer currentUser={currentUser} 
-                                        eventArr={eventArr}/>}
+              <JobSeekersMatchContainer />}
           </Route>
           <Route path="/profile">
-            <ProfileContainer userStatus={userStatus}
-                              currentUser={currentUser}
-                              recruiterArr={recruiterArr}
-                              jobseekerArr={jobseekerArr}
-                              setSkillChange={onSkillChange}/>
+            <ProfileContainer />
           </Route>
           <Route path="/events">
-            <EventsContainer userStatus={userStatus}
-                              currentUser={currentUser}
-                              recruiterArr={recruiterArr}
-                              jobseekerArr={jobseekerArr}
-                              updateUserEvents={onUserEventsUpdate}/>
+            <EventsContainer />
           </Route>
         </Switch>
       </Router>

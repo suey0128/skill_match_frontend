@@ -1,8 +1,9 @@
-function JobSeekersMatchEventItem({matchingEvent, currentUser}) {
-    console.log(matchingEvent)
+import {useSelector} from 'react-redux';
+function JobSeekersMatchEventItem({matchingEvent}) {
 
+    console.log(matchingEvent)
     const addJobSeekerEvent = (jobseeker_id, event_obj) => {
-      console.log(`jobseeker: ${jobseeker_id}, event: ${event_obj}`)
+      // console.log(`jobseeker: ${jobseeker_id}, event: ${event_obj}`)
       fetch("http://localhost:3000/events", {
             method: "PATCH",
             headers: {

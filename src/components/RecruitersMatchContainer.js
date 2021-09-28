@@ -1,7 +1,10 @@
 import RecruitersMatchList from "./RecruitersMatchList";
+import {useSelector} from 'react-redux';
 
-function RecruitersMatchContainer({currentUser}) {
-  console.log("currentUserInRecruiterMatchContainer", currentUser)
+function RecruitersMatchContainer() {
+
+  const currentUser = useSelector(state => state.currentUser)
+  // console.log("currentUserInRecruiterMatchContainer", currentUser)
     return (
       <div className="RecruitersMatchContainer">
         <div className="greeting-box">
