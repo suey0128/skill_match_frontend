@@ -442,3 +442,8 @@ ul {
 .add-event-js {
   width: 150px;
 }
+
+.save-change-btn {
+  height:40px;
+  margin-top: 15px;
+}

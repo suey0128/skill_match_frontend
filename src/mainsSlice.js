@@ -19,6 +19,7 @@ const mainsSlice = createSlice({
         userSkills: [],
         userEvents: [],
         needFetchUser: false,
+        viewProfile: true,
     },
     reducers: {
         setUserStatus(state, action) {
@@ -57,6 +58,9 @@ const mainsSlice = createSlice({
         setNeedFetchUser(state) {
             state.needFetchUser = !(state.needFetchUser)
         },
+        setViewProfile(state) {
+            state.viewProfile = !(state.viewProfile)
+        },
     }
 })
 
@@ -73,7 +77,8 @@ const {
     setShowPassword,
     setUserSkills,
     setUserEvents,
-    setNeedFetchUser
+    setNeedFetchUser,
+    setViewProfile
 } = mainsSlice.actions;
 
 // Exports
@@ -90,7 +95,8 @@ export {
     setShowPassword,
     setUserSkills,
     setUserEvents,
-    setNeedFetchUser
+    setNeedFetchUser,
+    setViewProfile
 }
 
 export default mainsSlice.reducer;
