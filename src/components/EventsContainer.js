@@ -135,20 +135,15 @@ function EventsContainer() {
     console.log(userEvents)
 
     // when a user clicks on delete - DONE!!
-    const handleEventDelete = (event_id) => {
-        fetch("http://localhost:3000/events", {
+    const handleEventDelete = (event_id, currentUser_id) => {
+        //find the add_event.id
+
+        let addEvent = currentUser.add_events.find(e=> e.event_id === event_id && e.job_seeker_id === currentUser_id)
+        // console.log(addEvent.id)
+        fetch(`http://localhost:3000/add_events/${addEvent.id}`, {
             method: "DELETE",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                user_type: userStatus,
-                user_id: currentUser.profile_id,
-                event_id: event_id
-            })
         })
-        .then(res => res.json())
-        .then(data => console.log(`Deleted, data: ${data}`))
+        .catch(error => console.error('Error:', error))
         dispatch(setUserEvents(userEvents.filter(event => event.id !== event_id)))
     }
 
@@ -327,7 +322,7 @@ function EventsContainer() {
                                     <p>{event.description}</p>
                                 </span>
                                 <span className="event-buttons">
-                                    <button className="remove-event" onClick={() => handleEventDelete(event.id)}>Remove</button>
+                                    <button className="remove-event" onClick={() => handleEventDelete(event.id,currentUser.id)}>Remove</button>
                                 </span>
                             </div>)
                         )}
