@@ -22,7 +22,8 @@ function App() {
   const dispatch = useDispatch();
   // dispatch(setUserState(user)) => change state
   const userStatus = useSelector(state => state.userStatus)
-  console.log(userStatus)
+  const currentUser = useSelector(state => state.currentUser)
+
 
   //fetch
   useEffect(()=>{
@@ -53,18 +54,12 @@ function App() {
 
   return (
     <div className="App">
+     { currentUser ? 
       <Router>
-        {/* <button onClick={history.push("/")}>yo</button> */}
         <Header />
         <Switch>
           <Route exact path="/">
             <Homepage />
-          </Route>
-          <Route path="/signup">
-            <SignUp />
-          </Route>
-          <Route path="/login">
-            <Login />
           </Route>
           <Route path="/matches">
             {userStatus === "recruiter" ? 
@@ -80,6 +75,22 @@ function App() {
           </Route>
         </Switch>
       </Router>
+      : 
+      <Router>
+        <Header />
+        <Switch>
+          <Route exact path="/">
+            <Homepage />
+          </Route>
+          <Route path="/signup">
+            <SignUp />
+          </Route>
+          <Route path="/login">
+            <Login />
+          </Route>
+        </Switch>
+      </Router>
+      }
     </div>
   );
 }
