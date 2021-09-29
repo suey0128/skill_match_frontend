@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import {useDispatch, useSelector} from 'react-redux';
-import {setUserSkills} from '../mainsSlice'
+import {setUserSkills, setCurrentUser, setNeedFetchUser} from '../mainsSlice'
 import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
 import { makeStyles, createTheme } from '@material-ui/core/styles';
 
 const theme = createTheme({
@@ -40,23 +39,38 @@ function ProfileSkills() {
     const userStatus = useSelector(state => state.userStatus)
     const currentUser = useSelector(state => state.currentUser)
     const userSkills = useSelector(state => state.userSkills)
+    const needFetchUser = useSelector(state => state.needFetchUser)
 
     const [skillView, setSkillView] = useState("view") //"view", "add", "edit"
     const [skillName, setSkillName] = useState("")
     const [skillId, setSkillId] = useState(0)
     const [skillLevel, setSkillLevel] = useState(3)
+ 
     const classes = useStyles();
 
     useEffect(() => {
+        currentUser.recruiters ? 
+            fetch(`http://localhost:3000/job_seekers/${currentUser.id}`)
+            .then(res => res.json())
+            .then(data => dispatch(setCurrentUser(data)))
+            .catch(error => console.error('Error:', error))
+        :
+            fetch(`http://localhost:3000/recruiters/${currentUser.id}`)
+            .then(res => res.json())
+            .then(data => dispatch(setCurrentUser(data)))
+            .catch(error => console.error('Error:', error))
+
         dispatch(setUserSkills(currentUser.skills))
-    }, [])
+    }, [needFetchUser])
+
+
     // delete from server - DONE!!
     const handleDelete = (skill_id) => {
-        console.log(skill_id)
         fetch(`http://localhost:3000/skills/${skill_id}`, {
             method: "DELETE",
         })
         dispatch(setUserSkills(userSkills.filter(skill => skill.id !== skill_id)))
+        dispatch(setNeedFetchUser())
     }
 
     // edit form view - DONE!!
@@ -69,17 +83,16 @@ function ProfileSkills() {
     }
 
     // console.log(skillId, skillName, skillLevel)
-    console.log(userSkills)
     // patch to server - DONE!!
     const handleEditSave = (e) => {
         e.preventDefault()
         let updated_skill = {
-            id: skillId,
+            // id: skillId,
             profile_id: currentUser.profile_id,
             name: skillName, 
             level: skillLevel
         }
-        fetch("http://localhost:3000/skills", {
+        fetch(`http://localhost:3000/skills/${skillId}`, {
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json"
@@ -88,21 +101,22 @@ function ProfileSkills() {
         })
         .then(res => res.json())
         .then(data => 
-            {let skill_updated = data.patch_skill;
+            {   console.log(data);
                 dispatch(setUserSkills(userSkills.map(skill => {
-                    if (skill.id === skill_updated.id) {
+                    if (skill.id === data.id) {
                         return {
-                            id: skill_updated.id,
-                            profile_id: skill_updated.profile_id,
-                            name: skill_updated.name, 
-                            level: skill_updated.level
+                            id: data.id,
+                            profile_id: data.profile_id,
+                            name: data.name, 
+                            level: data.level
                         }
                     } else {
                         return skill
                     }
-                })))
+                })));
             }
         )
+        dispatch(setNeedFetchUser())
         setSkillView("view")
     }
     
@@ -130,6 +144,7 @@ function ProfileSkills() {
         .then(res => res.json())
         .then(data => dispatch(setUserSkills([...userSkills, data])))
         // dispatch(setSkillChange(true))
+        dispatch(setNeedFetchUser())
         setSkillView("view")
         // console.log([...userSkills, new_skill])
     }
@@ -190,7 +205,7 @@ function ProfileSkills() {
         <div className="ProfileSkills">
             {/* form here */}
                 <form className={classes.form} noValidate onSubmit={handleEditSave}>
-                    <h4>{`Editing: ${skillName}, Level: ${skillLevel}`}</h4>
+                    {/* <h4>{`Editing: ${skillName}, Level: ${skillLevel}`}</h4> */}
                     <TextField
                     variant="outlined"
                     margin="normal"
@@ -212,6 +227,7 @@ function ProfileSkills() {
                     label="Skill Level: "
                     type="level"
                     id="level"
+                    value={skillLevel}
                     onChange={(e)=>{setSkillLevel(parseInt(e.target.value))}}
                     />
                     <button className="edit-save-skill">Save Edit</button>
