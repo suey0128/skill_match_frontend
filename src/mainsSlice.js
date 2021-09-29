@@ -18,6 +18,7 @@ const mainsSlice = createSlice({
         showPassword: false,
         userSkills: [],
         userEvents: [],
+        needFetchUser: false,
     },
     reducers: {
         setUserStatus(state, action) {
@@ -53,6 +54,9 @@ const mainsSlice = createSlice({
         setUserEvents(state, action) {
             state.userEvents = action.payload
         },
+        setNeedFetchUser(state) {
+            state.needFetchUser = !(state.needFetchUser)
+        },
     }
 })
 
@@ -68,7 +72,8 @@ const {
     setEventListOnDisplay,
     setShowPassword,
     setUserSkills,
-    setUserEvents
+    setUserEvents,
+    setNeedFetchUser
 } = mainsSlice.actions;
 
 // Exports
@@ -85,6 +90,7 @@ export {
     setShowPassword,
     setUserSkills,
     setUserEvents,
+    setNeedFetchUser
 }
 
 export default mainsSlice.reducer;

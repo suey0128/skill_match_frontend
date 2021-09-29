@@ -1,19 +1,21 @@
 import {useSelector} from 'react-redux';
-function JobSeekersMatchEventItem({matchingEvent}) {
 
-    console.log(matchingEvent)
+function JobSeekersMatchEventItem({ matchingEvent }) {
+
+  const currentUser = useSelector(state => state.currentUser)
+    // console.log(currentUser)
     const addJobSeekerEvent = (jobseeker_id, event_obj) => {
-      // console.log(`jobseeker: ${jobseeker_id}, event: ${event_obj}`)
-      fetch("http://localhost:3000/events", {
-            method: "PATCH",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-              id: jobseeker_id,
-              new_event: event_obj
-            })
-        })
+      console.log(`jobseeker: ${jobseeker_id}, event: ${event_obj}`)
+      // fetch("http://localhost:3000/events", {
+      //       method: "PATCH",
+      //       headers: {
+      //           "Content-Type": "application/json"
+      //       },
+      //       body: JSON.stringify({
+      //         id: jobseeker_id,
+      //         new_event: event_obj
+      //       })
+      //   })
     }
     return (
       <div >
@@ -27,8 +29,8 @@ function JobSeekersMatchEventItem({matchingEvent}) {
               <p>{matchingEvent.location}</p>
               <p>{matchingEvent.description}</p>
               <br></br>
-              {/* <button className="add-event-js" onClick={addJobSeekerEvent(currentUser.id, matchingEvent)}>Add Event</button> */}
             </div>
+            <button className="add-event-js" onClick={()=>{addJobSeekerEvent(currentUser.id, matchingEvent)}}>Add Event</button>
         </li>
       </div>
     );
