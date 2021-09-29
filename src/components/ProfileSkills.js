@@ -60,8 +60,12 @@ function ProfileSkills() {
             .then(data => dispatch(setCurrentUser(data)))
             .catch(error => console.error('Error:', error))
 
-        dispatch(setUserSkills(currentUser.skills))
+        
     }, [needFetchUser])
+
+    if (currentUser === null) {
+        return <h2>Loading...</h2> 
+      } else { dispatch(setUserSkills(currentUser.skills)) }
 
 
     // delete from server - DONE!!

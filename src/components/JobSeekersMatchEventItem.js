@@ -1,22 +1,26 @@
-import {useSelector} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
+import {setNeedFetchUser} from '../mainsSlice';
 
 function JobSeekersMatchEventItem({ matchingEvent }) {
-
+  const dispatch = useDispatch();
   const currentUser = useSelector(state => state.currentUser)
-    // console.log(currentUser)
+
     const addJobSeekerEvent = (jobseeker_id, event_obj) => {
-      console.log(`jobseeker: ${jobseeker_id}, event: ${event_obj}`)
-      // fetch("http://localhost:3000/events", {
-      //       method: "PATCH",
-      //       headers: {
-      //           "Content-Type": "application/json"
-      //       },
-      //       body: JSON.stringify({
-      //         id: jobseeker_id,
-      //         new_event: event_obj
-      //       })
-      //   })
+      //POST add_event table
+      fetch("http://localhost:3000/add_events", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+              job_seeker_id: jobseeker_id,
+              event_id: event_obj.id
+            })
+      })
+      //fetch currentUser
+      dispatch(setNeedFetchUser());
     }
+
     return (
       <div >
         <li className="job-seekers-match-event-item">

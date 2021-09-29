@@ -36,8 +36,6 @@ const useStyles = makeStyles((theme) => ({
 
 function EventsContainer() {
     const dispatch = useDispatch();
-    // need to use useEffect to fetch events from currentUser 
-    // const [userEvents, setUserEvents] = useState(currentUser.events)
 
     const userStatus = useSelector(state => state.userStatus)
     const currentUser = useSelector(state => state.currentUser)
