@@ -1,7 +1,7 @@
 import EventsList from './EventsList';
 import React, { useState, useEffect } from "react";
 import {useDispatch, useSelector} from 'react-redux';
-import {setUserEvents} from '../mainsSlice';
+import {setUserEvents, setNeedFetchUser} from '../mainsSlice';
 import TextField from '@material-ui/core/TextField';
 import { makeStyles, createTheme } from '@material-ui/core/styles';
 
@@ -47,9 +47,11 @@ function EventsContainer() {
     const [eventDate, setEventDate] = useState()
     const [eventLocation, setEventLocation] = useState("")
     const [eventDesc, setEventDesc] = useState("")
-    
+    const [eventImg, setEventImg] = useState("")
 
     const classes = useStyles();
+
+    console.log(currentUser)
 
     useEffect(() => {
         dispatch(setUserEvents(currentUser.events))
@@ -69,13 +71,12 @@ function EventsContainer() {
     const handleEditSave = (e) => {
         e.preventDefault()
         let updated_event = {
-            id: eventId,
             name: eventName,
             event_date: eventDate,
             location: eventLocation,
             description: eventDesc
         }
-        fetch("http://localhost:3000/events", {
+        fetch(`http://localhost:3000/events/${eventId}`, {
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json"
@@ -84,7 +85,7 @@ function EventsContainer() {
         })
         .then(res => res.json())
         .then(data =>
-            {let event_updated = data.patch_event;
+            {let event_updated = data;
             dispatch(setUserEvents(userEvents.map(event => {
                 if (event.id === event_updated.id) {
                     return {
@@ -100,6 +101,7 @@ function EventsContainer() {
             })))}
         )
         setEventView("view")
+        dispatch(setNeedFetchUser());
     }
     // when a user clicks on add - DONE!!
     const handleEventAdd = () => {
@@ -115,7 +117,8 @@ function EventsContainer() {
             name: eventName,
             event_date: eventDate, 
             location: eventLocation,
-            description: eventDesc
+            description: eventDesc,
+            image: eventImg
         }
 
         fetch("http://localhost:3000/events", {
@@ -127,12 +130,11 @@ function EventsContainer() {
         })
         .then(res => res.json())
         .then(data => {
-            dispatch(setUserEvents([...userEvents, data.new_event]))
+            dispatch(setUserEvents([...userEvents, data]))
             setEventView("view")
-            console.log([...userEvents, data.new_event])
+            dispatch(setNeedFetchUser());
         })
     }
-    console.log(userEvents)
 
     // when a user clicks on delete - DONE!!
     const handleEventDelete = (event_id, currentUser_id) => {
@@ -145,6 +147,16 @@ function EventsContainer() {
         })
         .catch(error => console.error('Error:', error))
         dispatch(setUserEvents(userEvents.filter(event => event.id !== event_id)))
+    }
+
+    // when recruiter remove an event 
+    const handleRecruiterEventDelete = (id) => {
+        fetch(`http://localhost:3000/events/${id}`, {
+            method: "DELETE",
+        })
+        .catch(error => console.error('Error:', error))
+        dispatch(setUserEvents(userEvents.filter(event => event.id !== id)));
+        dispatch(setNeedFetchUser());
     }
 
     return (
@@ -162,9 +174,7 @@ function EventsContainer() {
                         ? <div className="event-list">
                             <h2>Event List</h2>
                             {userEvents.map((event) =>
-                            // {const timestamp = event.event_date; 
-
-                            // console.log(new Intl.DateTimeFormat('en-US', {year: 'numeric', month: '2-digit',day: '2-digit', hour: '2-digit', minute: '2-digit'}).format(timestamp));
+                            
                                 (<div className="event-item-container">
                                     <span className="event-item-details">
                                         <h4>Name:</h4>
@@ -180,15 +190,15 @@ function EventsContainer() {
                                     </span>
                                     <span className="event-item-details">
                                         <h4>Description:</h4>
-                                        {/* {console.log(event.description)} */}
+
                                         <p>{event.description}</p>
                                     </span>
                                     <span className="event-buttons">
                                         <button className="edit-event" onClick={() => handleEventEdit(event.id, event.name, event.event_date, event.location, event.description)}>Edit</button>
-                                        <button className="remove-event" onClick={() => handleEventDelete(event.id)}>Remove</button>
+                                        <button className="remove-event" onClick={() => handleRecruiterEventDelete(event.id)}>Remove</button>
                                     </span>
                                 </div>)
-                            // }
+
                             )}
                             <button className="add-event" onClick={() => handleEventAdd()}>Add New Event</button>
                         </div>
@@ -237,6 +247,16 @@ function EventsContainer() {
                                         label="Event Description: "
                                         id="desc"
                                         onChange={(e)=>{setEventDesc(e.target.value)}}
+                                        />
+                                        <TextField
+                                        variant="outlined"
+                                        margin="normal"
+                                        required
+                                        fullWidth
+                                        name="image"
+                                        label="Event Image Url: "
+                                        id="image"
+                                        onChange={(e)=>{setEventImg(e.target.value)}}
                                         />
                                         <button className="add-save-skill">Add Event</button>
                                     </form>
