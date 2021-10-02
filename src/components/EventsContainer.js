@@ -51,11 +51,9 @@ function EventsContainer() {
 
     const classes = useStyles();
 
-    console.log(currentUser)
-
     useEffect(() => {
         dispatch(setUserEvents(currentUser.events))
-      }, [])
+    }, [])
 
     // when a user clicks on edit - DONE!!
     const handleEventEdit = (id, name, date, location, desc) => {
@@ -159,11 +157,17 @@ function EventsContainer() {
         dispatch(setNeedFetchUser());
     }
 
+    // if (userEvents.length === 0) return <h2>You Going event list is empty, go to matches page and add some!</h2>
+
     return (
       <div className="events-container">
         <div className="greeting-box">
             <h2>{`Hello, ${currentUser.name}`}</h2>
         </div>
+
+        {userEvents.length === 0 ? 
+        <h2>You event list is empty, go add some!</h2> 
+        :
         <div className="events-content">
             {/* Event List starts */}
             {userStatus === "recruiter"
@@ -349,6 +353,7 @@ function EventsContainer() {
                 </div>
             }
         </div>
+        }
       </div>
     );
   }
