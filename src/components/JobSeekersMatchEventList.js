@@ -19,6 +19,8 @@ function JobSeekersMatchEventList() {
     .catch(error => console.error('Error:', error))
   }, [needFetchUser])
 
+  if (eventListOnDisplay.length === 0) return <h2>Sorry, currently there isn't any matching event for you. Please check back later </h2>
+
   return (
     <div className="match-event-list">
       {eventListOnDisplay.map(matchingEvent => 
