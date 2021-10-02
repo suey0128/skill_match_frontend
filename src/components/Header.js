@@ -21,14 +21,14 @@ function Header() {
                             <h2 className="logo">Skilled Match</h2>
                         </NavLink>
                         <div className="nav-menu">
-                            <NavLink to="/profile" className="nav-link" style={{ textDecoration: 'none' }}>
-                                <button className="profile" >Profile</button>
+                            <NavLink to="/profile" className="nav-link" style={{ textDecoration: 'none' }} activeStyle={{fontWeight: "bold"}}>
+                                Profile
                             </NavLink>
-                            <NavLink to="/matches" className="nav-link" style={{ textDecoration: 'none' }}>
-                                <button className="matches">Matches</button>
+                            <NavLink to="/matches" className="nav-link" style={{ textDecoration: 'none' }} activeStyle={{fontWeight: "bold"}}>
+                                Matches
                             </NavLink>
-                            <NavLink to="/events" className="nav-link" style={{ textDecoration: 'none' }}>
-                                <button className="events">Events</button>
+                            <NavLink to="/events" className="nav-link" style={{ textDecoration: 'none' }} activeStyle={{fontWeight: "bold"}}>
+                                Events
                             </NavLink>
                         </div>
                     </div>
