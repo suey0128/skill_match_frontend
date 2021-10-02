@@ -61,22 +61,31 @@ const useStyles = makeStyles((theme) => ({
   const [enterSignUpLocation, setEnterSignUpLocation] = useState("")
   const [enterSignUpPD, setEnterSignUpPD] = useState("")
   const [enterSignUpImage, setEnterSignUpImage] = useState("")
+  const [enterSkill, setEnterSkill] = useState("")
+  const [enterLevel, setEnterLevel] = useState("")
 
   const handleJobSeekerSignUp = (e) => {
     e.preventDefault();
-    fetch("http://localhost:3000/jobseekers", {
+    let newSignUp = {
+      newUser: {
+        name: enterSignUpName, 
+        username: enterSignUpUsername, 
+        location: enterSignUpLocation, 
+        password: enterSignUpPD, 
+        email: enterSignUpEmail, 
+        image: enterSignUpImage
+      },
+      newSkill: {
+        name: enterSkill,
+        level: enterLevel
+      }
+    }
+    fetch("http://localhost:3000/job_seekers", {
     method: 'POST',
     headers:{
       'Content-Type': 'application/json'
     },
-    body:JSON.stringify({
-      enterSignUpName, 
-      enterSignUpUsername, 
-      enterSignUpLocation, 
-      enterSignUpPD, 
-      enterSignUpEmail, 
-      enterSignUpImage
-    })
+    body:JSON.stringify(newSignUp)
     })
     .then(res => res.json())
     .then(data => {
@@ -176,6 +185,27 @@ const useStyles = makeStyles((theme) => ({
               autoComplete="current-password"
               onChange={(e)=>{setEnterSignUpPD(e.target.value)}}
               value={enterSignUpPD}
+            />
+              <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              name="skill"
+              label="Skill"
+              type="skill"
+              id="skill"
+              onChange={(e)=>{setEnterSkill(e.target.value)}}
+              value={enterSkill}
+            />
+              <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              name="level"
+              label="Skill Level"
+              type="level"
+              onChange={(e)=>{setEnterLevel(e.target.value)}}
+              value={enterLevel}
             />
             <Link to="/profile" style={{color: 'inherit', textDecoration: 'none'}}>
               <Button
