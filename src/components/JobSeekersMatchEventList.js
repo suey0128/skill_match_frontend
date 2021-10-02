@@ -12,14 +12,12 @@ function JobSeekersMatchEventList() {
   useEffect(() => {
     fetch(`http://localhost:3000/job_seekers/${currentUser.id}`)
     .then(res => res.json())
-    .then(data => dispatch(setCurrentUser(data)))
+    .then(data => {
+      dispatch(setCurrentUser(data))
+      dispatch(setEventListOnDisplay(currentUser.all_matching_events_for_front_end))
+    })
     .catch(error => console.error('Error:', error))
   }, [needFetchUser])
-
-  if (currentUser === null) {
-    return <h2>Loading...</h2> 
-  } else { dispatch(setEventListOnDisplay(currentUser.all_matching_events_for_front_end)) }
-
 
   return (
     <div className="match-event-list">
