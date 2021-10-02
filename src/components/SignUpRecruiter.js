@@ -70,13 +70,13 @@ const useStyles = makeStyles((theme) => ({
         'Content-Type': 'application/json'
       },
       body:JSON.stringify({
-        enterSignUpName,  
-        enterSignUpCompanyName, 
-        enterSignUpUsername, 
-        enterSignUpLocation, 
-        enterSignUpPD, 
-        enterSignUpEmail, 
-        enterSignUpLogo 
+        name: enterSignUpName,  
+        company_name: enterSignUpCompanyName, 
+        username: enterSignUpUsername, 
+        location: enterSignUpLocation, 
+        password: enterSignUpPD, 
+        email: enterSignUpEmail, 
+        logo: enterSignUpLogo 
       })
       })
       .then(res => res.json())

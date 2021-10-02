@@ -4,14 +4,10 @@ import {setEventListOnDisplay} from '../mainsSlice'
 function JobSeekersMatchFilter() {
   const dispatch = useDispatch();
   const currentUser = useSelector(state => state.currentUser)
-  // const eventArr = useSelector(state => state.currentUser.all_matching_events_for_front_end)
-  const eventListOnDisplay = useSelector(state => state.eventListOnDisplay)
-
+  
   const onAllMatchingEventBtnClick = () => {
     dispatch(setEventListOnDisplay(currentUser.all_matching_events_for_front_end))
   }
-
-  console.log(eventListOnDisplay)
 
   const onSearchChange=(input) => {
     console.log(input)
