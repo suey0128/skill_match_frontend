@@ -1,12 +1,7 @@
 import {useDispatch, useSelector} from 'react-redux';
 import {setEventListOnDisplay} from '../mainsSlice';
-import { styled } from '@mui/material/styles';
 import Chip from '@mui/material/Chip';
 
-
-const ListItem = styled('li')(({ theme }) => ({
-  margin: theme.spacing(0.5),
-}));
 
 function JobSeekersSideBarItem({matchingRecruiter}) {
   const dispatch = useDispatch();
