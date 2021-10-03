@@ -1,11 +1,16 @@
+import { styled } from '@mui/material/styles';
+import Chip from '@mui/material/Chip';
 
-
-function RecruitersMatchListSkills({matchingJobSeeker}) {
-    console.log(matchingJobSeeker)
+function RecruitersMatchListSkills({skill}) {
+    console.log(skill)
     return (
-      <div className="RecruitersMatchListSkills">
-        <button className=""></button>
-      </div>
+      // <div className="RecruitersMatchListSkills">
+          <Chip
+          label={`${skill.name}, ${skill.level}`}
+            size="small"
+            style={{ color: "#fff"}}
+            />
+      // </div>
     );
   }
   
