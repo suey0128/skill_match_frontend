@@ -65,7 +65,6 @@ const useStyles = makeStyles((theme) => ({
     e.preventDefault();
     const isRecruiter = recruiterArr.find(r => r.username === enterLoginUsername && r.password === enterLoginPD) 
     const isJobSeeker = jobseekerArr.find(j => j.username === enterLoginUsername && j.password === enterLoginPD) 
-    console.log(isRecruiter, isJobSeeker)
     
     if (isRecruiter) {
       //set userStatus

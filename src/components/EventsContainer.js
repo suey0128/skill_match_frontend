@@ -1,4 +1,3 @@
-import EventsList from './EventsList';
 import React, { useState, useEffect } from "react";
 import {useDispatch, useSelector} from 'react-redux';
 import {setUserEvents, setNeedFetchUser} from '../mainsSlice';
@@ -157,7 +156,7 @@ function EventsContainer() {
         dispatch(setNeedFetchUser());
     }
 
-    // if (userEvents.length === 0) return <h2>You Going event list is empty, go to matches page and add some!</h2>
+    console.log('yo',userEvents)
 
     return (
       <div className="events-container">

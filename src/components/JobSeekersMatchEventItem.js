@@ -1,24 +1,33 @@
 import {useSelector, useDispatch} from 'react-redux';
-import {setNeedFetchUser} from '../mainsSlice';
+import {setEventListOnDisplay, setUserEvents, setNeedFetchUser} from '../mainsSlice';
 
 function JobSeekersMatchEventItem({ matchingEvent }) {
   const dispatch = useDispatch();
   const currentUser = useSelector(state => state.currentUser)
+  const eventListOnDisplay = useSelector(state => state.eventListOnDisplay)
+  const userEvents = useSelector(state => state.userEvents)
 
-    const addJobSeekerEvent = (jobseeker_id, event_obj) => {
-      //POST add_event table
-      fetch("http://localhost:3000/add_events", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-              job_seeker_id: jobseeker_id,
-              event_id: event_obj.id
-            })
-      })
-      dispatch(setNeedFetchUser());
-    }
+  const addJobSeekerEvent = (jobseeker_id, event_obj) => {
+    //POST add_event table
+    fetch("http://localhost:3000/add_events", {
+          method: "POST",
+          headers: {
+              "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            job_seeker_id: jobseeker_id,
+            event_id: event_obj.id
+          })
+    })
+    //update state on matching eventlist 
+    dispatch(setEventListOnDisplay(eventListOnDisplay.filter(matchingEvent => matchingEvent.id !== event_obj.id)));
+    // update state on matching event array
+    dispatch(setUserEvents([...userEvents,event_obj]));
+    // trigger feching currentUser (there for all the info that feed in the pages)
+    dispatch(setNeedFetchUser());
+  }
+
+    console.log('userEvents',userEvents)
 
     return (
 

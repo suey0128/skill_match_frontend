@@ -4,6 +4,7 @@ import {setEventListOnDisplay} from '../mainsSlice'
 function JobSeekersMatchFilter() {
   const dispatch = useDispatch();
   const currentUser = useSelector(state => state.currentUser)
+  const eventListOnDisplay = useSelector(state => state.eventListOnDisplay)
   
   const onAllMatchingEventBtnClick = () => {
     dispatch(setEventListOnDisplay(currentUser.all_matching_events_for_front_end))
@@ -23,7 +24,10 @@ function JobSeekersMatchFilter() {
       <div className="filter">
       <input id="search-bar" type="text" placeholder="Search Event" 
              onChange={(e)=>{onSearchChange(e.target.value)}}/>
+      {eventListOnDisplay.length < currentUser.all_matching_events_for_front_end.length ?
       <button className="all-event-button" onClick={onAllMatchingEventBtnClick}>All Matching Events</button>
+      : null
+      }
     </div>
     );
   }
