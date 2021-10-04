@@ -22,12 +22,12 @@ function JobSeekersMatchEventItem({ matchingEvent }) {
     //update state on matching eventlist 
     dispatch(setEventListOnDisplay(eventListOnDisplay.filter(matchingEvent => matchingEvent.id !== event_obj.id)));
     // update state on matching event array
-    dispatch(setUserEvents([...userEvents,event_obj]));
+    // dispatch(setUserEvents([...userEvents,event_obj]));
     // trigger feching currentUser (there for all the info that feed in the pages)
     // dispatch(setNeedFetchUser());
   }
 
-    console.log('userEvents',userEvents)
+    // console.log('userEvents',userEvents)
 
     return (
 

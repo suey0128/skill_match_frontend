@@ -14,10 +14,10 @@ function JobSeekersMatchEventList() {
     .then(res => res.json())
     .then(data => {
       dispatch(setCurrentUser(data))
-      dispatch(setEventListOnDisplay(currentUser.all_matching_events_for_front_end))
+      dispatch(setEventListOnDisplay(data.all_matching_events_for_front_end))
     })
     .catch(error => console.error('Error:', error))
-  }, [needFetchUser])
+  }, [])
 
   if (eventListOnDisplay.length === 0) return <h2>Sorry, currently there isn't any matching event for you. Please check back later </h2>
 

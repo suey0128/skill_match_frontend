@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import {useDispatch, useSelector} from 'react-redux';
-import {setUserEvents, setNeedFetchUser} from '../mainsSlice';
+import {setUserEvents, setNeedFetchUser, setEventListOnDisplay, setCurrentUser} from '../mainsSlice';
 import TextField from '@material-ui/core/TextField';
 import { makeStyles, createTheme } from '@material-ui/core/styles';
 
@@ -39,6 +39,7 @@ function EventsContainer() {
     const userStatus = useSelector(state => state.userStatus)
     const currentUser = useSelector(state => state.currentUser)
     const userEvents = useSelector(state => state.userEvents)
+    const eventListOnDisplay = useSelector(state => state.eventListOnDisplay)
 
     const [eventView, setEventView] = useState("view") //"view", "edit", "add"
     const [eventId, setEventId] = useState(0)
@@ -51,7 +52,13 @@ function EventsContainer() {
     const classes = useStyles();
 
     useEffect(() => {
-        dispatch(setUserEvents(currentUser.events))
+        fetch(`http://localhost:3000/job_seekers/${currentUser.id}`)
+        .then(res => res.json())
+        .then(data => {
+            dispatch(setCurrentUser(data))
+            dispatch(setUserEvents(data.events))
+        })
+        .catch(error => console.error('Error:', error))
     }, [])
 
     // when a user clicks on edit - DONE!!
@@ -134,16 +141,18 @@ function EventsContainer() {
     }
 
     // when a user clicks on delete - DONE!!
-    const handleEventDelete = (event_id, currentUser_id) => {
+    const handleEventDelete = (deleteEvent, currentUser_id) => {
         //find the add_event.id
 
-        let addEvent = currentUser.add_events.find(e=> e.event_id === event_id && e.job_seeker_id === currentUser_id)
+        let addEvent = currentUser.add_events.find(e=> e.event_id === deleteEvent.id && e.job_seeker_id === currentUser_id)
         // console.log(addEvent.id)
         fetch(`http://localhost:3000/add_events/${addEvent.id}`, {
             method: "DELETE",
         })
         .catch(error => console.error('Error:', error))
-        dispatch(setUserEvents(userEvents.filter(event => event.id !== event_id)))
+        dispatch(setUserEvents(userEvents.filter(event => event.id !== deleteEvent.id)))
+        // dispatch(setEventListOnDisplay([...eventListOnDisplay, deleteEvent]))
+        // dispatch eventListOnDisplay - need to update with the new event
     }
 
     // when recruiter remove an event 
@@ -345,7 +354,7 @@ function EventsContainer() {
                                     <p>{event.description}</p>
                                 </span>
                                 <span className="event-buttons">
-                                    <button className="remove-event" onClick={() => handleEventDelete(event.id,currentUser.id)}>Remove</button>
+                                    <button className="remove-event" onClick={() => handleEventDelete(event,currentUser.id)}>Remove</button>
                                 </span>
                             </div>)
                         )}
