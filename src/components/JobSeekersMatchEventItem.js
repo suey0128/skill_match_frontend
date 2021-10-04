@@ -24,7 +24,7 @@ function JobSeekersMatchEventItem({ matchingEvent }) {
     // update state on matching event array
     dispatch(setUserEvents([...userEvents,event_obj]));
     // trigger feching currentUser (there for all the info that feed in the pages)
-    dispatch(setNeedFetchUser());
+    // dispatch(setNeedFetchUser());
   }
 
     console.log('userEvents',userEvents)
