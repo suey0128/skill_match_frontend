@@ -49,20 +49,29 @@ function ProfileContainer() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        let newProfileInfo = {
-            id: currentUser.id, 
+        let newProfileInfo = {};
+        let js= {newUser: {
             name,
             location,
             username,
             password,
             email
-        };
+            }};
+        let r = {
+            name,
+            location,
+            username,
+            password,
+            email
+            };
 
         let userType;
         if (currentUser.job_seekers) {
             userType = "recruiters"
+            newProfileInfo = r
         } else { 
             userType = "job_seekers"
+            newProfileInfo = js
         }
 
         // console.log(newProfileInfo, userType)
