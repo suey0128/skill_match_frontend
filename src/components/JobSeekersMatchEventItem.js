@@ -27,7 +27,7 @@ function JobSeekersMatchEventItem({ matchingEvent }) {
     // dispatch(setNeedFetchUser());
   }
 
-    console.log('userEvents',userEvents)
+    // console.log('userEvents',userEvents)
 
     return (
 

@@ -60,12 +60,12 @@ function ProfileSkills() {
             .then(data => dispatch(setCurrentUser(data)))
             .catch(error => console.error('Error:', error))
 
-        
-    }, [needFetchUser])
+        if (currentUser === null) {
+            return <h2>Loading...</h2> 
+        } else { dispatch(setUserSkills(currentUser.skills)) }
+    }, [])
 
-    if (currentUser === null) {
-        return <h2>Loading...</h2> 
-      } else { dispatch(setUserSkills(currentUser.skills)) }
+
 
 
     // delete from server - DONE!!
@@ -74,7 +74,7 @@ function ProfileSkills() {
             method: "DELETE",
         })
         dispatch(setUserSkills(userSkills.filter(skill => skill.id !== skill_id)))
-        dispatch(setNeedFetchUser())
+        // dispatch(setNeedFetchUser())
     }
 
     // edit form view - DONE!!
@@ -94,7 +94,7 @@ function ProfileSkills() {
             // id: skillId,
             profile_id: currentUser.profile_id,
             name: skillName, 
-            level: skillLevel
+            level: parseInt(skillLevel)
         }
         fetch(`http://localhost:3000/skills/${skillId}`, {
             method: "PATCH",
@@ -105,22 +105,23 @@ function ProfileSkills() {
         })
         .then(res => res.json())
         .then(data => 
-            {   console.log(data);
-                dispatch(setUserSkills(userSkills.map(skill => {
-                    if (skill.id === data.id) {
-                        return {
-                            id: data.id,
-                            profile_id: data.profile_id,
-                            name: data.name, 
-                            level: data.level
-                        }
-                    } else {
-                        return skill
+            {
+            // console.log(data);
+            dispatch(setUserSkills(userSkills.map(skill => {
+                if (skill.id === data.id) {
+                    return {
+                        id: data.id,
+                        profile_id: data.profile_id,
+                        name: data.name, 
+                        level: data.level
                     }
-                })));
+                } else {
+                    return skill
+                }
+            })));
             }
         )
-        dispatch(setNeedFetchUser())
+        // dispatch(setNeedFetchUser())
         setSkillView("view")
     }
     
@@ -130,13 +131,13 @@ function ProfileSkills() {
     // form view + patch to server - DONE!!
     const handleAddSave = (e) => {
         e.preventDefault()  
-            let new_skill = {
-                name: skillName, 
-                level: skillLevel,
-                profile_id: currentUser.profile.id,
-                // user_type: userStatus,
-                // user_id: currentUser.id
-            }
+        let new_skill = {
+            name: skillName, 
+            level: skillLevel,
+            profile_id: currentUser.profile.id,
+            // user_type: userStatus,
+            // user_id: currentUser.id
+        }
 
         fetch("http://localhost:3000/skills", {
             method: "POST",
@@ -148,7 +149,7 @@ function ProfileSkills() {
         .then(res => res.json())
         .then(data => dispatch(setUserSkills([...userSkills, data])))
         // dispatch(setSkillChange(true))
-        dispatch(setNeedFetchUser())
+        // dispatch(setNeedFetchUser())
         setSkillView("view")
         // console.log([...userSkills, new_skill])
     }
@@ -232,7 +233,7 @@ function ProfileSkills() {
                     type="level"
                     id="level"
                     value={skillLevel}
-                    onChange={(e)=>{setSkillLevel(parseInt(e.target.value))}}
+                    onChange={(e)=>{setSkillLevel(e.target.value)}}
                     />
                     <button className="edit-save-skill">Save Edit</button>
                 </form>
