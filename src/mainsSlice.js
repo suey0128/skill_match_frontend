@@ -20,6 +20,7 @@ const mainsSlice = createSlice({
         userEvents: [],
         needFetchUser: false,
         viewProfile: true,
+        showSidebar: false,
     },
     reducers: {
         setUserStatus(state, action) {
@@ -61,6 +62,9 @@ const mainsSlice = createSlice({
         setViewProfile(state) {
             state.viewProfile = !(state.viewProfile)
         },
+        setShowSidebar(state, action) {
+            state.showSidebar = action.payload
+        },
     }
 })
 
@@ -78,7 +82,8 @@ const {
     setUserSkills,
     setUserEvents,
     setNeedFetchUser,
-    setViewProfile
+    setViewProfile,
+    setShowSidebar,
 } = mainsSlice.actions;
 
 // Exports
@@ -96,7 +101,8 @@ export {
     setUserSkills,
     setUserEvents,
     setNeedFetchUser,
-    setViewProfile
+    setViewProfile,
+    setShowSidebar,
 }
 
 export default mainsSlice.reducer;
