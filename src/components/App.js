@@ -16,6 +16,7 @@ import JobSeekersMatchContainer from './JobSeekersMatchContainer';
 import RecruitersMatchContainer from './RecruitersMatchContainer';
 import ProfileContainer from './ProfileContainer';
 import EventsContainer from './EventsContainer';
+import Footer from './Footer';
 
 
 function App() {
@@ -91,6 +92,8 @@ function App() {
         </Switch>
       </Router>
       }
+
+      <Footer />
     </div>
   );
 }
