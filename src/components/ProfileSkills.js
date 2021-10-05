@@ -66,8 +66,6 @@ function ProfileSkills() {
     }, [])
 
 
-
-
     // delete from server - DONE!!
     const handleDelete = (skill_id) => {
         fetch(`http://localhost:3000/skills/${skill_id}`, {
