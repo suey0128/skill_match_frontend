@@ -458,6 +458,27 @@ ul {
   justify-content: center;
 }
 
+footer {
+  background: #94aac4;
+  height: auto;
+  margin-top: 30px;
+  width: 100vw;
+  padding-top: 30px;
+  padding-bottom: 5x;
+  color: #fff;
+
+}
+
+.footer-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.footer-content p {
+  margin-top: 20px;
+}
 
 
 @media screen and (max-width: 768px) {
