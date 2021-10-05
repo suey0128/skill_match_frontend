@@ -52,7 +52,16 @@ function EventsContainer() {
     const classes = useStyles();
 
     useEffect(() => {
+        currentUser.recruiters ? 
         fetch(`http://localhost:3000/job_seekers/${currentUser.id}`)
+        .then(res => res.json())
+        .then(data => {
+            dispatch(setCurrentUser(data))
+            dispatch(setUserEvents(data.events))
+        })
+        .catch(error => console.error('Error:', error))
+        :
+        fetch(`http://localhost:3000/recruiters/${currentUser.id}`)
         .then(res => res.json())
         .then(data => {
             dispatch(setCurrentUser(data))
@@ -134,9 +143,10 @@ function EventsContainer() {
         })
         .then(res => res.json())
         .then(data => {
+            // console.log(data)
             dispatch(setUserEvents([...userEvents, data]))
             setEventView("view")
-            dispatch(setNeedFetchUser());
+            // dispatch(setNeedFetchUser());
         })
     }
 
@@ -186,7 +196,6 @@ function EventsContainer() {
                         ? <div className="event-list">
                             <h2>Event List</h2>
                             {userEvents.map((event) =>
-                            
                                 (<div className="event-item-container">
                                     <span className="event-item-details">
                                         <h4>Name:</h4>
