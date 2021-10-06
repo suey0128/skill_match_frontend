@@ -11,11 +11,11 @@ function JobSeekersSideBarItem({matchingRecruiter}) {
     dispatch(setEventListOnDisplay(eventArr.filter(event => event.recruiter_id == matchingRecruiter.id)))
   }
 
-  console.log(matchingRecruiter.skills)
+  // console.log(matchingRecruiter.skills)
 
     return (
       <div className="job-seekers-side-bar-item">
-        <div onClick={onSideBarItemClick}>
+        <div className="job-seekers-side-bar-content" onClick={onSideBarItemClick}>
             <img src={matchingRecruiter.logo} alt={matchingRecruiter.company_name} className="side-bar-logo"/>
             <h2>{matchingRecruiter.company_name}</h2>
             <p>{matchingRecruiter.name}</p>

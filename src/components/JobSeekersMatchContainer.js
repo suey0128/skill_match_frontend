@@ -3,6 +3,7 @@ import {useSelector} from 'react-redux';
 import JobSeekersMatchSidebar from "./JobSeekersMatchSidebar";
 import JobSeekersMatchFilter from "./JobSeekersMatchFilter";
 import JobSeekersMatchEventList from "./JobSeekersMatchEventList";
+import JobSeekersMatchSidebarMobile from "./JobSeekersMatchSidebarMobile";
 
 function JobSeekersMatchContainer() {
   const currentUser = useSelector(state => state.currentUser)
@@ -16,6 +17,9 @@ function JobSeekersMatchContainer() {
           <h2>{`Hello, ${currentUser.name}`}</h2>
         </div>
         <JobSeekersMatchFilter />
+
+        <JobSeekersMatchSidebarMobile />
+
         <div className="match-page-container">
           <JobSeekersMatchSidebar />
           <JobSeekersMatchEventList />

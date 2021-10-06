@@ -21,19 +21,15 @@ function JobSeekersMatchEventItem({ matchingEvent }) {
     })
     //update state on matching eventlist 
     dispatch(setEventListOnDisplay(eventListOnDisplay.filter(matchingEvent => matchingEvent.id !== event_obj.id)));
-    // update state on matching event array
-    // dispatch(setUserEvents([...userEvents,event_obj]));
-    // trigger feching currentUser (there for all the info that feed in the pages)
-    // dispatch(setNeedFetchUser());
+
   }
 
-    // console.log('userEvents',userEvents)
 
     return (
 
       <div className="job-seekers-match-event-item">
           <div className="event-photo-wrapper">
-            <img src={matchingEvent.image} alt={matchingEvent.name} className="event-photo"/>
+            <img className="event-photo" src={matchingEvent.image} alt={matchingEvent.name} />
           </div>
           <div className="event-detail-contianer">
             <h2 className="event-name" >{matchingEvent.name}</h2>

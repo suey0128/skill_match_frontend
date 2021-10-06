@@ -55,6 +55,7 @@ function App() {
 
   return (
     <div className="App">
+      <div className="app-container">
      { currentUser ? 
       <Router>
         <Header />
@@ -90,9 +91,10 @@ function App() {
             <Login />
           </Route>
         </Switch>
+
       </Router>
       }
-
+    </div>
       <Footer />
     </div>
   );
