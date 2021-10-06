@@ -2,15 +2,15 @@ import JobSeekersEventItem from "./JobSeekersMatchEventItem";
 import {useDispatch, useSelector} from 'react-redux';
 import {setEventListOnDisplay, setCurrentUser} from '../mainsSlice';
 import { useEffect } from "react";
+import fetchPort from '../fetchPort';
 
 function JobSeekersMatchEventList() {
   const dispatch = useDispatch();
   const currentUser = useSelector(state => state.currentUser)
   const eventListOnDisplay = useSelector(state => state.eventListOnDisplay)
-  const needFetchUser = useSelector(state => state.needFetchUser)
 
   useEffect(() => {
-    fetch(`http://localhost:3000/job_seekers/${currentUser.id}`)
+    fetch(`${fetchPort}/job_seekers/${currentUser.id}`)
     .then(res => res.json())
     .then(data => {
       dispatch(setCurrentUser(data))

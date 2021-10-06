@@ -11,7 +11,7 @@ const JobSeekersMatchSidebarMobile = () => {
     const currentUser = useSelector(state => state.currentUser);
   
     const handleClick = (matchingRecruiter) => {
-      dispatch(setEventListOnDisplay(eventArr.filter(event => event.recruiter_id == matchingRecruiter.id)))
+      dispatch(setEventListOnDisplay(eventArr.filter(event => event.recruiter_id === matchingRecruiter.id)))
       dispatch(setShowMobileRecruiterInfo(matchingRecruiter))
     }
 

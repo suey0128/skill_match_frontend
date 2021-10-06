@@ -17,41 +17,38 @@ import RecruitersMatchContainer from './RecruitersMatchContainer';
 import ProfileContainer from './ProfileContainer';
 import EventsContainer from './EventsContainer';
 import Footer from './Footer';
+import fetchPort from '../fetchPort'
 
 
 function App() {
   const dispatch = useDispatch();
-  // dispatch(setUserState(user)) => change state
   const userStatus = useSelector(state => state.userStatus)
   const currentUser = useSelector(state => state.currentUser)
 
-
   //fetch
   useEffect(()=>{
-    fetch("http://localhost:3000/recruiters")
+    fetch(`${fetchPort}/recruiters`)
     .then(res => res.json())
     .then(recruiters => dispatch(setRecruiterArr(recruiters)))
     .catch(error => console.error('Error:', error))
   },[])
 
   useEffect(()=>{
-    fetch("http://localhost:3000/job_seekers")
+    fetch(`${fetchPort}/job_seekers`)
     .then(res => res.json())
     .then(jobseekers => {
       dispatch(setJobseekerArr(jobseekers))
-      //hardcoding currentUser as jobseeker id 1
-      // setCurrentUser(jobseekers.filter(js => js.id === 1))
-      // setUserStatus("jobseeker")
     })
     .catch(error => console.error('Error:', error))
   },[])
 
   useEffect(()=>{
-    fetch("http://localhost:3000/events")
+    fetch(`${fetchPort}/events`)
     .then(res => res.json())
     .then(events => dispatch(setEventArr(events)))
     .catch(error => console.error('Error:', error))
   },[])
+
 
   return (
     <div className="App">

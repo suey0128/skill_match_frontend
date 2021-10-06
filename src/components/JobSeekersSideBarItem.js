@@ -8,10 +8,9 @@ function JobSeekersSideBarItem({matchingRecruiter}) {
   const eventArr = useSelector(state => state.eventArr);
 
   const onSideBarItemClick = () => {
-    dispatch(setEventListOnDisplay(eventArr.filter(event => event.recruiter_id == matchingRecruiter.id)))
+    dispatch(setEventListOnDisplay(eventArr.filter(event => event.recruiter_id === matchingRecruiter.id)))
   }
 
-  // console.log(matchingRecruiter.skills)
 
     return (
       <div className="job-seekers-side-bar-item">
@@ -31,7 +30,6 @@ function JobSeekersSideBarItem({matchingRecruiter}) {
             size="small"
             style={{ color: "#fff"}}
             />
-          // <p>{`${data.name}, level${data.level}`}</p>
         )}
         </div>
       </div>

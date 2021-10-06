@@ -1,17 +1,12 @@
-//Have to run the 2 command below to make the page show poperly on your browser 
-//npm install @material-ui/core 
-//npm install @material-ui/icons
 
 import React, {useState} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
+import {useDispatch} from 'react-redux';
 import { setUserStatus, setCurrentUser } from '../mainsSlice';
 import {useHistory} from 'react-router-dom';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
@@ -20,6 +15,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 
 import { ThemeProvider, createTheme } from '@material-ui/core/styles';
+
+import fetchPort from '../fetchPort';
 
 const theme = createTheme({
   palette: {
@@ -80,7 +77,7 @@ const useStyles = makeStyles((theme) => ({
         level: enterLevel
       }
     }
-    fetch("http://localhost:3000/job_seekers", {
+    fetch(`${fetchPort}/job_seekers`, {
     method: 'POST',
     headers:{
       'Content-Type': 'application/json'

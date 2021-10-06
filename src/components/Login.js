@@ -1,8 +1,3 @@
-//Have to run the 2 command below to make the page show poperly on your browser 
-//npm install @material-ui/core 
-//npm install @material-ui/icons
-
-//Material UI
 import React, { useState }from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import { setUserStatus, setCurrentUser } from '../mainsSlice';
@@ -54,7 +49,6 @@ const useStyles = makeStyles((theme) => ({
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const currentUser = useSelector(state => state.currentUser)
   const jobseekerArr = useSelector(state => state.jobseekerArr)
   const recruiterArr = useSelector(state => state.recruiterArr)
   const [enterLoginUsername, setEnterLoginUsername] = useState("")
@@ -71,10 +65,8 @@ const useStyles = makeStyles((theme) => ({
       dispatch(setUserStatus("recruiter"))
       //set currentUser
       dispatch(setCurrentUser(isRecruiter))
-      // console.log("currentUserInAppWhenRecruiterLogin", currentUser, "isRecruiter", isRecruiter)
     } else if (isJobSeeker) {
       dispatch(setUserStatus("jobseeker"))
-      // console.log("isJobSeeker",isJobSeeker)
       dispatch(setCurrentUser(isJobSeeker))
     } else {
       alert("Incorrect username or password, please re-enter.");
@@ -120,7 +112,7 @@ const useStyles = makeStyles((theme) => ({
               onChange={(e)=>{setEnterLoginPD(e.target.value)}}
               value={enterLoginPD}
             />
-            {/* <Link to="/matches" style={{color: 'inherit', textDecoration: 'none'}}> */}
+    
               <Button 
                 type="submit"
                 fullWidth
@@ -130,7 +122,7 @@ const useStyles = makeStyles((theme) => ({
               >
                 Login
               </Button>
-            {/* </Link> */}
+    
             <Grid container>
               <Grid item>
                 <Link href="/signup" variant="body2">

@@ -1,15 +1,15 @@
 import {useSelector, useDispatch} from 'react-redux';
-import {setEventListOnDisplay, setUserEvents, setNeedFetchUser} from '../mainsSlice';
+import {setEventListOnDisplay} from '../mainsSlice';
+import fetchPort from '../fetchPort';
 
 function JobSeekersMatchEventItem({ matchingEvent }) {
   const dispatch = useDispatch();
   const currentUser = useSelector(state => state.currentUser)
   const eventListOnDisplay = useSelector(state => state.eventListOnDisplay)
-  const userEvents = useSelector(state => state.userEvents)
 
   const addJobSeekerEvent = (jobseeker_id, event_obj) => {
     //POST add_event table
-    fetch("http://localhost:3000/add_events", {
+    fetch(`${fetchPort}/add_events`, {
           method: "POST",
           headers: {
               "Content-Type": "application/json"
