@@ -269,8 +269,22 @@ button:hover {
   text-align: center;
 }
 
+.event-page-container-empty {
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction:column;
+  padding: 15px 30px;
+  text-align: center;
+}
+
+.event-page-container-empty h2 {
+  margin-bottom: 15px;
+}
+
 .event-page-list {
-  margin-left: 0px;
+  /* margin-left: 0px; */
   width:80%;
 }
 
@@ -307,8 +321,8 @@ button:hover {
 .add-event {
   background: #94aac4;
   color: #fff;
-  margin-bottom: 15px;
   width: 150px;
+  margin: auto;
 }
 
 /* these can all be deleted
@@ -405,6 +419,7 @@ ul {
   align-items: center;
   justify-content: flex-start;
   background: #94aac4;
+  margin-top: 10px; 
   margin-bottom: 10px; 
   border-radius: 10px;
 }
@@ -483,7 +498,7 @@ ul {
   height:5vh;
   border-radius: 10px;
   font-size: 17px;
-  border: 2px dashed grey;
+  border: 2px dashed rgb(128, 128, 128);
 }
 
 .all-event-button {
@@ -627,7 +642,7 @@ footer {
  
   }
 
-  .match-page-container, .event-page-container{
+  .match-page-container, .event-page-container, .event-page-container-empty{
     padding: 5px 5px;
   }
 
@@ -694,8 +709,12 @@ footer {
     margin-bottom: 10px;
   }
 
-  .job-seekers-side-bar-item-chip {
-    background: #94aac4;
+  .sign-up-header {
+    font-size: 20px;
+  }
+
+  .sign-up-choice-btn {
+    width: 250px;
   }
 
 }
