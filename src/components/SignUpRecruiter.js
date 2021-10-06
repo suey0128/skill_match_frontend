@@ -20,6 +20,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 
 import { ThemeProvider, createTheme } from '@material-ui/core/styles';
+import fetchPort from '../fetchPort';
 
 const theme = createTheme({
   palette: {
@@ -64,7 +65,7 @@ const useStyles = makeStyles((theme) => ({
 
   const handleRecruiterSignUp = (e) => {
     e.preventDefault();
-    fetch("http://localhost:3000/recruiters", {
+    fetch(`${fetchPort}/recruiters`, {
       method: 'POST',
       headers:{
         'Content-Type': 'application/json'

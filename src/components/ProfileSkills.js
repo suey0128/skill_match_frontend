@@ -6,6 +6,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AddIcon from '@mui/icons-material/Add';
 import { makeStyles, createTheme } from '@material-ui/core/styles';
+import fetchPort from '../fetchPort';
 
 const theme = createTheme({
     palette: {
@@ -53,12 +54,12 @@ function ProfileSkills() {
 
     useEffect(() => {
         currentUser.recruiters ? 
-            fetch(`http://localhost:3000/job_seekers/${currentUser.id}`)
+            fetch(`${fetchPort}/job_seekers/${currentUser.id}`)
             .then(res => res.json())
             .then(data => dispatch(setCurrentUser(data)))
             .catch(error => console.error('Error:', error))
         :
-            fetch(`http://localhost:3000/recruiters/${currentUser.id}`)
+            fetch(`${fetchPort}/recruiters/${currentUser.id}`)
             .then(res => res.json())
             .then(data => dispatch(setCurrentUser(data)))
             .catch(error => console.error('Error:', error))
@@ -71,7 +72,7 @@ function ProfileSkills() {
 
     // delete from server - DONE!!
     const handleDelete = (skill_id) => {
-        fetch(`http://localhost:3000/skills/${skill_id}`, {
+        fetch(`${fetchPort}/skills/${skill_id}`, {
             method: "DELETE",
         })
         dispatch(setUserSkills(userSkills.filter(skill => skill.id !== skill_id)))
@@ -97,7 +98,7 @@ function ProfileSkills() {
             name: skillName, 
             level: parseInt(skillLevel)
         }
-        fetch(`http://localhost:3000/skills/${skillId}`, {
+        fetch(`${fetchPort}/skills/${skillId}`, {
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json"
@@ -140,7 +141,7 @@ function ProfileSkills() {
             // user_id: currentUser.id
         }
 
-        fetch("http://localhost:3000/skills", {
+        fetch(`${fetchPort}/skills`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

@@ -3,6 +3,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {setUserEvents, setNeedFetchUser, setEventListOnDisplay, setCurrentUser} from '../mainsSlice';
 import TextField from '@material-ui/core/TextField';
 import { makeStyles, createTheme } from '@material-ui/core/styles';
+import fetchPort from '../fetchPort';
 
 const theme = createTheme({
     palette: {
@@ -53,7 +54,7 @@ function EventsContainer() {
 
     useEffect(() => {
         currentUser.recruiters ? 
-        fetch(`http://localhost:3000/job_seekers/${currentUser.id}`)
+        fetch(`${fetchPort}/job_seekers/${currentUser.id}`)
         .then(res => res.json())
         .then(data => {
             dispatch(setCurrentUser(data))
@@ -61,7 +62,7 @@ function EventsContainer() {
         })
         .catch(error => console.error('Error:', error))
         :
-        fetch(`http://localhost:3000/recruiters/${currentUser.id}`)
+        fetch(`${fetchPort}/recruiters/${currentUser.id}`)
         .then(res => res.json())
         .then(data => {
             dispatch(setCurrentUser(data))
@@ -88,7 +89,7 @@ function EventsContainer() {
             location: eventLocation,
             description: eventDesc
         }
-        fetch(`http://localhost:3000/events/${eventId}`, {
+        fetch(`${fetchPort}/events/${eventId}`, {
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json"
@@ -134,7 +135,7 @@ function EventsContainer() {
             image: eventImg
         }
 
-        fetch("http://localhost:3000/events", {
+        fetch(`${fetchPort}/events`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -152,7 +153,7 @@ function EventsContainer() {
     const handleEventDelete = (deleteEvent, currentUser_id) => {
         //find the add_event.id
         let addEvent = currentUser.add_events.find(e=> e.event_id === deleteEvent.id && e.job_seeker_id === currentUser_id)
-        fetch(`http://localhost:3000/add_events/${addEvent.id}`, {
+        fetch(`${fetchPort}/add_events/${addEvent.id}`, {
             method: "DELETE",
         })
         .catch(error => console.error('Error:', error))
@@ -161,7 +162,7 @@ function EventsContainer() {
 
     // when recruiter remove an event 
     const handleRecruiterEventDelete = (id) => {
-        fetch(`http://localhost:3000/events/${id}`, {
+        fetch(`${fetchPort}/events/${id}`, {
             method: "DELETE",
         })
         .catch(error => console.error('Error:', error))

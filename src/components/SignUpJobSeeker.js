@@ -21,6 +21,8 @@ import Container from '@material-ui/core/Container';
 
 import { ThemeProvider, createTheme } from '@material-ui/core/styles';
 
+import fetchPort from '../fetchPort';
+
 const theme = createTheme({
   palette: {
     primary: {
@@ -80,7 +82,7 @@ const useStyles = makeStyles((theme) => ({
         level: enterLevel
       }
     }
-    fetch("http://localhost:3000/job_seekers", {
+    fetch(`${fetchPort}/job_seekers`, {
     method: 'POST',
     headers:{
       'Content-Type': 'application/json'
