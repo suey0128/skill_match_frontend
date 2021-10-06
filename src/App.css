@@ -325,35 +325,6 @@ button:hover {
   margin: auto;
 }
 
-/* these can all be deleted
-.event-item-container{
-  margin: 10px;
-  border: 2px medium black;
-}
-
-.event-item-details {
-  display: flex;
-  justify-content: flex-start;
-  padding: 10px;
-}
-
-.event-item-details p{
-  margin-left: 10px;
-}
-
-.event-buttons{
-  display: flex;
-  width: 50%;
-  flex-direction: row;
-  justify-content: center;
-}
-
-.event-buttons button, button.add-event{
-  width: 50%;
-  display: flex;
-  justify-content: center;
-}
-*/
 
 /* Match pages */
 .match-page-container {
@@ -597,6 +568,16 @@ footer {
   display: none;
 }
 
+.demo-message {
+  background-color: #94aac4;
+  color: #fff;
+  text-align: left;
+  margin: 30px 50px;
+  padding:30px;
+  border-radius:10px;
+  
+}
+
 @media screen and (max-width: 768px) {
   .moible-nav-icon {
     display: block;
@@ -715,6 +696,17 @@ footer {
 
   .sign-up-choice-btn {
     width: 250px;
+  }
+
+  .demo-message {
+
+    margin: 30px;
+    padding:20px;
+    border-radius:10px;
+  }
+
+  .homepage-content {
+    margin: 30px;
   }
 
 }

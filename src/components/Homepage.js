@@ -5,6 +5,18 @@ function Homepage() {
         <div className="homepage-image">
             <img src="https://images.pexels.com/photos/3183197/pexels-photo-3183197.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260" alt="company"></img>
         </div>
+        <div className="demo-message">
+            <h3>***For demo purposes, please use the below info to login 😉***</h3>
+            <h4>as jobseeker:</h4>
+            <p style={{ 'text-decoration': 'underline'}}>username: suey, password: 123</p>
+            <h4>as recruiter:</h4>
+            <p style={{ 'text-decoration': 'underline'}}>username: john, password: 123</p>
+            <br></br>
+
+            <h3>You can also signup as a new user. </h3>
+            <p>As we only added related seed data skills within <span style={{ 'text-decoration': 'underline'}}>JavaScript, C++, C#, Ruby, Python, Java</span>.  </p>
+            <p>You will have more fun playing with the website if you put in a few of these skills when signing up</p>
+        </div>
         <div className="homepage-content">
             <p>Welcome to Skilled Match! We're here to help match individuals and recruiters that are looking to connect based on similar skills. Let our app's magic do all the work, and you're one step closer to getting a skilled match.</p>
             <br></br>

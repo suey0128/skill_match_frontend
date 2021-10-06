@@ -92,7 +92,7 @@ const useStyles = makeStyles((theme) => ({
               required
               fullWidth
               id="username"
-              label="Username"
+              label="Username /for demo purpuse: suey or john"
               name="username"
               autoComplete="username"
               autoFocus
@@ -105,7 +105,7 @@ const useStyles = makeStyles((theme) => ({
               required
               fullWidth
               name="password"
-              label="Password"
+              label="Password /for demo purpuse: 123"
               type="password"
               id="password"
               autoComplete="current-password"

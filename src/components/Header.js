@@ -58,7 +58,9 @@ function Header() {
                 </>
                 
                 : <>
-                     <h2 className="logo">Skilled Match</h2>
+                    <NavLink exact to="/" className="nav-link" style={{ textDecoration: 'none' }}>
+                        <h2 className="logo">Skilled Match</h2>
+                     </NavLink>
                      <div className="header-right">
                         <NavLink to="/login" style={{ textDecoration: 'none' }} className="login">
                             <button >Login</button>
