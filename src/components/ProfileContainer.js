@@ -103,9 +103,7 @@ function ProfileContainer() {
                     
                     <div className="user-details">
                         <h2>User Details</h2>
-
                         <div className="details-container">
-                            <br></br>
                             <span className="user-details-text-box">
                                 <h4>Name:</h4>
                                 <p>{currentUser.name}</p>
@@ -120,7 +118,6 @@ function ProfileContainer() {
                             </span>
                             <span className="user-details-text-box">
                                 <h4>Password:</h4>
-
                                 <p>{currentUser.password}</p>
                             </span>
                             <span className="user-details-text-box">
@@ -128,10 +125,9 @@ function ProfileContainer() {
                                 <p>{currentUser.email}</p>
                             </span>
                         </div>
-
-                        <br></br>
-
-                        <button onClick={()=>dispatch(setViewProfile(false))}>Edit Profile</button>
+                        <span className="user-details-text-box">
+                            <button className="edit-profile" onClick={()=>dispatch(setViewProfile(false))}>Edit Profile</button>
+                        </span>
                     </div>
 
                     <div className="skills-container">
