@@ -386,13 +386,13 @@ ul {
 
 .recruiter-match-item {
   height: 100%;
-  width: 80%;
+  width: 60%;
   padding: 20px 30px; 
   display: flex;
-  justify-content: left;
+  justify-content: center;
   align-items: center;
   background: #94aac4;
-  margin: 10px auto;
+  margin: 5px auto;
   border-radius: 10px;
 }
 
