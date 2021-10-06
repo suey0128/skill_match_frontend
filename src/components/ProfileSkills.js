@@ -2,6 +2,9 @@ import React, { useState, useEffect } from "react";
 import {useDispatch, useSelector} from 'react-redux';
 import {setUserSkills, setCurrentUser, setNeedFetchUser} from '../mainsSlice'
 import TextField from '@material-ui/core/TextField';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
+import AddIcon from '@mui/icons-material/Add';
 import { makeStyles, createTheme } from '@material-ui/core/styles';
 
 const theme = createTheme({
@@ -161,14 +164,20 @@ function ProfileSkills() {
             {userSkills.map((skill) =>
                 (<span className="skills-details-box">
                     <h4>{skill.name}</h4> 
-                    <h4>Skill Level:</h4> 
+                    <h4>Level:</h4> 
                     <p>{skill.level}</p>
-                    <button className="edit-skill" onClick={() => handleEdit(skill.id, skill.name, skill.level)}>Edit</button>
-                    <button className="delete-skill" onClick={() => handleDelete(skill.id)}>Delete</button>
+                    <button className="edit-skill" onClick={() => handleEdit(skill.id, skill.name, skill.level)}>
+                        <EditIcon style={{fontSize: "18px"}}/>
+                    </button>
+                    <button className="delete-skill" onClick={() => handleDelete(skill.id)}>
+                        <DeleteIcon style={{fontSize: "18px"}}/>
+                    </button>
                 </span>)
             )}
             <span className="skills-details-box">
-                <button className="add-skill" onClick={() => handleAdd()}>Add</button>
+                <button className="add-skill" onClick={() => handleAdd()}>
+                    <AddIcon style={{fontSize: "18px"}}/>
+                </button>
             </span>
         </div>
         : skillView === "add"

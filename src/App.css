@@ -149,13 +149,13 @@ button:hover {
 .greeting-box{
   width: fit-content;
   margin: 20px;
-  margin-left: 50px;
+
   padding: 10px;
   border-radius: 5px;
   display: flex;
   justify-content: left;
-  background-color: #94aac4;
-  color: #f5f5f5;
+  color: #94aac4;
+  background-color: #fafafa;
 }
 
 .profile-container, .events-container, .RecruitersMatchContainer {
@@ -164,7 +164,24 @@ button:hover {
   flex-direction: column;
 }
 
-.profile-content, .events-content{
+.profile-content {
+  width: auto;
+  margin: 20px;
+  margin-left: 50px;
+  margin-right: 50px;
+  padding: 10px;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  /* background-color: #94aac4; */
+  color: #f5f5f5;
+}
+
+.ProfileSkills {
+  padding: 20px 0;
+}
+
+.events-content {
   width: auto;
   margin: 20px;
   margin-left: 50px;
@@ -180,20 +197,23 @@ button:hover {
 .user-details{
   width: 50%;
   margin: 20px;
-  margin-left: 50px;
-  padding: 10px;
+  padding: 30px;
   border-radius: 5px;
   display: flex;
-  justify-content: left;
+  /* justify-content: center; */
   background-color: #94aac4;
   color: #f5f5f5;
   flex-direction: column;
 }
 
+.details-container {
+  padding: 20px 0;
+}
+
 .skills-container{
   width: 50%;
   margin: 20px;
-  padding: 10px;
+  padding: 30px;
   border-radius: 5px;
   display: flex;
   justify-content: left;
@@ -203,7 +223,7 @@ button:hover {
 
 .user-details-text-box, .skills-details-box, .event-item-details {
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
   padding: 5px;
 }
 
@@ -214,6 +234,10 @@ button:hover {
 .user-details-text-box p, .skills-details-box p{
   margin-left: 10px;
   margin-top: 5px;
+}
+
+.edit-profile {
+  width: 50%;
 }
 
 .skills-container{
@@ -227,8 +251,12 @@ button:hover {
 }
 
 .skills-details-box button{
-  width: 60px;
+  width: 10%;
   margin-left: 15px;
+}
+
+.add-skill {
+  margin-top: 20px;
 }
 
 /* Event Page */
@@ -480,7 +508,7 @@ footer {
   margin-top: 20px;
 }
 
-
+/* Responsive screen at ipad size */
 @media screen and (max-width: 768px) {
   .moible-nav-icon {
     display: block;
@@ -511,5 +539,60 @@ footer {
 
   .navbar-container {
     padding: 20px;
+  }
+}
+
+/* Responsive screen at iphone 5 size */
+@media screen and (max-width: 414px) {
+  .moible-nav-icon {
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    transform: translate(-100%, 60%);
+    font-size: 1.8rem;
+    cursor: pointer;
+  }
+  .nav-menu, .logout-btn{
+    display: none;
+  }
+
+  .sidebar-menu {
+    grid-template-rows: repeat(3,60px);
+  }
+
+  button {
+    width: 100%;
+    font-size: 12px;
+    padding: 8px
+  }
+
+  .logo {
+    font-size: 1.2rem;
+  }
+
+  .navbar-container {
+    padding: 20px;
+  }
+
+  .profile-content {
+    flex-direction: column;
+    margin: 20px;
+  }
+
+  .profile-container {
+    display: flex;
+    justify-content: center;
+  }
+
+  .skills-container, .user-details {
+    width: 100%;
+    margin: 20px 0;
+  }
+
+  .greeting-box {
+    margin: 0;
+    color: #94aac4;
+    background-color: #fafafa;
   }
 }
