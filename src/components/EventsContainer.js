@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import {useDispatch, useSelector} from 'react-redux';
-import {setUserEvents, setNeedFetchUser, setEventListOnDisplay, setCurrentUser} from '../mainsSlice';
+import {setUserEvents, setNeedFetchUser, setCurrentUser} from '../mainsSlice';
 import TextField from '@material-ui/core/TextField';
 import { makeStyles, createTheme } from '@material-ui/core/styles';
 import fetchPort from '../fetchPort';
@@ -40,7 +40,6 @@ function EventsContainer() {
     const userStatus = useSelector(state => state.userStatus)
     const currentUser = useSelector(state => state.currentUser)
     const userEvents = useSelector(state => state.userEvents)
-    const eventListOnDisplay = useSelector(state => state.eventListOnDisplay)
 
     const [eventView, setEventView] = useState("view") //"view", "edit", "add"
     const [eventId, setEventId] = useState(0)
@@ -71,7 +70,7 @@ function EventsContainer() {
         .catch(error => console.error('Error:', error))
     }, [])
 
-    // when a user clicks on edit - DONE!!
+    // when a user clicks on edit 
     const handleEventEdit = (id, name, date, location, desc) => {
         setEventView("edit")
         setEventId(id)
@@ -80,7 +79,7 @@ function EventsContainer() {
         setEventDesc(desc)
         setEventLocation(location)
     }
-    // when a user clicks on save edit - DONE!!
+    // when a user clicks on save edit 
     const handleEditSave = (e) => {
         e.preventDefault()
         let updated_event = {
@@ -116,12 +115,12 @@ function EventsContainer() {
         setEventView("view")
         dispatch(setNeedFetchUser());
     }
-    // when a user clicks on add - DONE!!
+    // when a user clicks on add 
     const handleEventAdd = () => {
         setEventView("add")
     }
 
-    // when a user clicks on save add - DONE!!
+    // when a user clicks on save add 
     const handleAddSave = (e) => {
         e.preventDefault()
         
@@ -149,7 +148,7 @@ function EventsContainer() {
         })
     }
 
-    // when a user clicks on delete - DONE!!
+    // when a user clicks on delete 
     const handleEventDelete = (deleteEvent, currentUser_id) => {
         //find the add_event.id
         let addEvent = currentUser.add_events.find(e=> e.event_id === deleteEvent.id && e.job_seeker_id === currentUser_id)
@@ -176,12 +175,6 @@ function EventsContainer() {
             <h2>{`Hello, ${currentUser.name}`}</h2>
         </div>
 
-        {/* {userEvents.length === 0 ? 
-        <div className="event-page-container-empty">
-            <h2 >You event list is empty</h2>
-            <button className="add-event" onClick={() => handleEventAdd()}>Add New Event</button>
-        </div> 
-        : */}
         <div className="event-page-container">
             {/* Event List starts */}
             {userStatus === "recruiter"
@@ -194,7 +187,7 @@ function EventsContainer() {
                             <button className="add-event" onClick={() => handleEventAdd()}>Add New Event</button>
                             {userEvents.map((event) =>
                                 (
-                                    <div className="job-seekers-match-event-item">
+                                    <div className="job-seekers-match-event-item" key={event.id}>
                                     <div className="event-photo-wrapper-event-page">
                                         <img className="event-photo" src={event.image} alt={event.name} />
                                     </div>
@@ -336,7 +329,7 @@ function EventsContainer() {
                     <h1 className="going-event-list-title">Going Event List</h1>
                         {userEvents.map((event) =>
                             (
-                                <div className="job-seekers-match-event-item">
+                                <div className="job-seekers-match-event-item" key={event.id}>
                                     <div className="event-photo-wrapper-event-page">
                                         <img className="event-photo" src={event.image} alt={event.name} />
                                     </div>
@@ -354,7 +347,7 @@ function EventsContainer() {
                 </div>
             }
         </div>
-        {/* } */}
+
       </div>
     );
   }

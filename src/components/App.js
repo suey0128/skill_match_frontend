@@ -22,13 +22,11 @@ import fetchPort from '../fetchPort'
 
 function App() {
   const dispatch = useDispatch();
-  // dispatch(setUserState(user)) => change state
   const userStatus = useSelector(state => state.userStatus)
   const currentUser = useSelector(state => state.currentUser)
 
   //fetch
   useEffect(()=>{
-    // fetch("http://localhost:3000/recruiters")
     fetch(`${fetchPort}/recruiters`)
     .then(res => res.json())
     .then(recruiters => dispatch(setRecruiterArr(recruiters)))

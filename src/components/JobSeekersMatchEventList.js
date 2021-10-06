@@ -8,7 +8,6 @@ function JobSeekersMatchEventList() {
   const dispatch = useDispatch();
   const currentUser = useSelector(state => state.currentUser)
   const eventListOnDisplay = useSelector(state => state.eventListOnDisplay)
-  const needFetchUser = useSelector(state => state.needFetchUser)
 
   useEffect(() => {
     fetch(`${fetchPort}/job_seekers/${currentUser.id}`)

@@ -1,4 +1,4 @@
-import React, {useState}from 'react'
+import React from 'react'
 import {useSelector} from 'react-redux';
 import JobSeekersMatchSidebar from "./JobSeekersMatchSidebar";
 import JobSeekersMatchFilter from "./JobSeekersMatchFilter";
@@ -10,9 +10,6 @@ function JobSeekersMatchContainer() {
   const currentUser = useSelector(state => state.currentUser);
   const showMobileRecruiterInfo = useSelector(state => state.showMobileRecruiterInfo);
   
-  // need to use useEffect to fetch events from currentUser 
-
-  // console.log(eventListOnDisplay)
     return (
       <div className="JobSeekersMatchContainer">
         <div className="greeting-box">

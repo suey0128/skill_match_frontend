@@ -2,7 +2,7 @@ import React from 'react';
 import {NavLink} from 'react-router-dom';
 import CloseIcon from '@mui/icons-material/Close';
 
-import {useDispatch, useSelector} from 'react-redux';
+import {useDispatch} from 'react-redux';
 import { setCurrentUser, setUserStatus, setShowSidebar } from '../mainsSlice';
 
 const Sidebar = () => {

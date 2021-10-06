@@ -12,7 +12,6 @@ function JobSeekersMatchFilter() {
   }
 
   const onSearchChange=(input) => {
-    console.log(input)
     dispatch(setEventListOnDisplay(currentUser.all_matching_events_for_front_end.filter(e=> 
       e.description.toLocaleLowerCase().includes(input.toLocaleLowerCase()) || 
       e.event_date.toLocaleLowerCase().includes(input.toLocaleLowerCase()) || 

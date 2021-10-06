@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import {useDispatch, useSelector} from 'react-redux';
-import {setUserSkills, setCurrentUser, setNeedFetchUser} from '../mainsSlice'
+import {setUserSkills, setCurrentUser} from '../mainsSlice'
 import TextField from '@material-ui/core/TextField';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -40,10 +40,8 @@ const useStyles = makeStyles((theme) => ({
 function ProfileSkills() {
 
     const dispatch = useDispatch();
-    const userStatus = useSelector(state => state.userStatus)
     const currentUser = useSelector(state => state.currentUser)
     const userSkills = useSelector(state => state.userSkills)
-    const needFetchUser = useSelector(state => state.needFetchUser)
 
     const [skillView, setSkillView] = useState("view") //"view", "add", "edit"
     const [skillName, setSkillName] = useState("")
@@ -70,30 +68,26 @@ function ProfileSkills() {
     }, [])
 
 
-    // delete from server - DONE!!
+    // delete from server
     const handleDelete = (skill_id) => {
         fetch(`${fetchPort}/skills/${skill_id}`, {
             method: "DELETE",
         })
         dispatch(setUserSkills(userSkills.filter(skill => skill.id !== skill_id)))
-        // dispatch(setNeedFetchUser())
     }
 
-    // edit form view - DONE!!
+    // edit form view 
     const handleEdit = (skill_id, skill_name, skill_level) => {
-        // console.log(skill_id)
         setSkillView("edit")
         setSkillId(skill_id)
         setSkillName(skill_name)
         setSkillLevel(skill_level)
     }
 
-    // console.log(skillId, skillName, skillLevel)
-    // patch to server - DONE!!
+    // patch to server 
     const handleEditSave = (e) => {
         e.preventDefault()
         let updated_skill = {
-            // id: skillId,
             profile_id: currentUser.profile_id,
             name: skillName, 
             level: parseInt(skillLevel)
@@ -108,7 +102,6 @@ function ProfileSkills() {
         .then(res => res.json())
         .then(data => 
             {
-            // console.log(data);
             dispatch(setUserSkills(userSkills.map(skill => {
                 if (skill.id === data.id) {
                     return {
@@ -123,22 +116,19 @@ function ProfileSkills() {
             })));
             }
         )
-        // dispatch(setNeedFetchUser())
         setSkillView("view")
     }
     
     const handleAdd = () => {
         setSkillView("add")
     }
-    // form view + patch to server - DONE!!
+    // form view + patch to server 
     const handleAddSave = (e) => {
         e.preventDefault()  
         let new_skill = {
             name: skillName, 
             level: skillLevel,
             profile_id: currentUser.profile.id,
-            // user_type: userStatus,
-            // user_id: currentUser.id
         }
 
         fetch(`${fetchPort}/skills`, {
@@ -150,10 +140,7 @@ function ProfileSkills() {
         })
         .then(res => res.json())
         .then(data => dispatch(setUserSkills([...userSkills, data])))
-        // dispatch(setSkillChange(true))
-        // dispatch(setNeedFetchUser())
         setSkillView("view")
-        // console.log([...userSkills, new_skill])
     }
 
 
@@ -162,8 +149,8 @@ function ProfileSkills() {
         {/* if view is view */}
         {skillView === "view"
         ? <div className="ProfileSkills">
-            {userSkills.map((skill) =>
-                (<span className="skills-details-box">
+            {userSkills.map((skill) => 
+                (<span className="skills-details-box" key={skill.id}>
                     <h4>{skill.name}</h4> 
                     <h4>Level:</h4> 
                     <p>{skill.level}</p>

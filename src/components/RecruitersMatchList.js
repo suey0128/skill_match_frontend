@@ -1,12 +1,8 @@
 import RecruitersMatchListSkills from "./RecruitersMatchListSkills";
-// import {useDispatch, useSelector} from 'react-redux';
 
 function RecruitersMatchList({matchingJobSeeker}) {
-  console.log("matchingJobSeeker", matchingJobSeeker)
     return (
       <div className="recruiter-match-item">
-         {/* <div className="matching-job-seeker-photo">
-          </div> */}
           <div className="matching-job-seeker-info">
             <img className="matching-job-seeker-photo" src={matchingJobSeeker.image} alt={matchingJobSeeker.name} />
             <h2>{matchingJobSeeker.name}</h2>

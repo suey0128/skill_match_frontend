@@ -1,7 +1,7 @@
 import ProfileSkills from "./ProfileSkills";
 import { useState } from "react";
 import {useDispatch, useSelector} from 'react-redux';
-import {setViewProfile, setCurrentUser, setNeedFetchUser} from '../mainsSlice';
+import {setViewProfile, setNeedFetchUser} from '../mainsSlice';
 import TextField from '@material-ui/core/TextField';
 import { makeStyles, createTheme } from '@material-ui/core/styles';
 import fetchPort from '../fetchPort';
@@ -75,7 +75,6 @@ function ProfileContainer() {
             newProfileInfo = js
         }
 
-        // console.log(newProfileInfo, userType)
         //Patch
         fetch(`${fetchPort}/${userType}/${currentUser.id}`, {
             method: "PATCH",
