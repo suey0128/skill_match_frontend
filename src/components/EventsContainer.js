@@ -184,44 +184,39 @@ function EventsContainer() {
         </div>
 
         {userEvents.length === 0 ? 
-        <h2>You event list is empty, go add some!</h2> 
+        <h2 >You event list is empty, go add some!</h2> 
         :
-        <div className="events-content">
+        <div className="event-page-container">
             {/* Event List starts */}
             {userStatus === "recruiter"
                 // if userStatus is Recruiter
                 ? <>
                     {/* if view is view */}
                         {eventView === "view"
-                        ? <div className="event-list">
-                            <h2>Event List</h2>
+                        ? <div className="event-page-list">
+                            <h1 className="going-event-list-title">Event List</h1>
+                            <button className="add-event" onClick={() => handleEventAdd()}>Add New Event</button>
                             {userEvents.map((event) =>
-                                (<div className="event-item-container">
-                                    <span className="event-item-details">
-                                        <h4>Name:</h4>
-                                        <p>{event.name}</p>
-                                    </span>
-                                    <span className="event-item-details">
-                                        <h4>Location:</h4>
-                                        <p>{event.location}</p>
-                                    </span>
-                                    <span className="event-item-details">
-                                        <h4>Date:</h4>
+                                (
+                                    <div className="job-seekers-match-event-item">
+                                    <div className="event-photo-wrapper-event-page">
+                                        <img className="event-photo" src={event.image} alt={event.name} />
+                                    </div>
+                                    <div className="event-detail-contianer">
+                                        <h2 className="event-name" >{event.name}</h2>
                                         <p>{event.event_date}</p>
-                                    </span>
-                                    <span className="event-item-details">
-                                        <h4>Description:</h4>
-
+                                        <p>{event.location}</p>
                                         <p>{event.description}</p>
-                                    </span>
-                                    <span className="event-buttons">
-                                        <button className="edit-event" onClick={() => handleEventEdit(event.id, event.name, event.event_date, event.location, event.description)}>Edit</button>
-                                        <button className="remove-event" onClick={() => handleRecruiterEventDelete(event.id)}>Remove</button>
-                                    </span>
-                                </div>)
+                                        <br></br>
+                                        <div className="event-page-btn-group">
+                                            <button className="add-event-js" onClick={() => handleEventEdit(event.id, event.name, event.event_date, event.location, event.description)}>Edit</button>
+                                            <button className="add-event-js" onClick={() => handleRecruiterEventDelete(event.id)}>Remove</button>
+                                        </div>
+                                    </div>
+                                    </div>   
+                                )
 
                             )}
-                            <button className="add-event" onClick={() => handleEventAdd()}>Add New Event</button>
                         </div>
                         : eventView === "add"
                         // if view is add
@@ -279,7 +274,7 @@ function EventsContainer() {
                                         id="image"
                                         onChange={(e)=>{setEventImg(e.target.value)}}
                                         />
-                                        <button className="add-save-skill">Add Event</button>
+                                        <button className="save-event">Save Event</button>
                                     </form>
                             </div>
                             // if view is edit
@@ -335,37 +330,30 @@ function EventsContainer() {
                                     onChange={(e)=>{setEventDesc(e.target.value)}}
                                     value={eventDesc}
                                     />
-                                    <button className="edit-save-skill">Save Edit</button>
+                                    <button className="save-event">Save Edit</button>
                                 </form>
                             </div>
                         }
                 </>
                 // if userStatus is Job Seeker
-                : <div className="event-list">
-                    <h2>Event List</h2>
+                : <div className="event-page-list">
+                    <h1 className="going-event-list-title">Going Event List</h1>
                         {userEvents.map((event) =>
-                            (<div className="event-item-container">
-                                <span className="event-item-details">
-                                    <h4>Name:</h4>
-                                    <p>{event.name}</p>
-                                </span>
-                                <span className="event-item-details">
-                                    <h4>Location:</h4>
-                                    <p>{event.location}</p>
-                                </span>
-                                <span className="event-item-details">
-                                    <h4>Date:</h4>
-                                    <p>{event.event_date}</p>
-                                </span>
-                                <span className="event-item-details">
-                                    <h4>Description:</h4>
-                                    {/* {console.log(event.description)} */}
-                                    <p>{event.description}</p>
-                                </span>
-                                <span className="event-buttons">
-                                    <button className="remove-event" onClick={() => handleEventDelete(event,currentUser.id)}>Remove</button>
-                                </span>
-                            </div>)
+                            (
+                                <div className="job-seekers-match-event-item">
+                                    <div className="event-photo-wrapper-event-page">
+                                        <img className="event-photo" src={event.image} alt={event.name} />
+                                    </div>
+                                    <div className="event-detail-contianer">
+                                        <h2 className="event-name" >{event.name}</h2>
+                                        <p>{event.event_date}</p>
+                                        <p>{event.location}</p>
+                                        <p>{event.description}</p>
+                                        <br></br>
+                                        <button className="add-event-js" onClick={() => handleEventDelete(event,currentUser.id)}>Remove</button>
+                                    </div>
+                                </div>                            
+                            )
                         )}
                 </div>
             }
