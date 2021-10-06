@@ -12,20 +12,19 @@ function RecruitersMatchContainer() {
         </div>
         <div className="recruiters-match-seeker-h2">
           {currentUser.all_matching_job_seekers.length > 0 ? 
-          <h2>Here is your list of matching job seekers based on the skills you are looking for!</h2>
+          <p>Here is your list of matching job seekers based on the skills you are looking for!</p>
           :
-          <h2>We don't currently have any matching job seeker for you based on the skills you are looking for, please check back later</h2>
+          <p>We don't currently have any matching job seeker for you based on the skills you are looking for, please check back later</p>
           }
        </div>
-       <ul >
-        {
-          currentUser.all_matching_job_seekers.map(matchingJobSeeker => 
+       <div className="recruiter-match-container">
+        {currentUser.all_matching_job_seekers.map(matchingJobSeeker => 
           <RecruitersMatchList key={matchingJobSeeker.id}
                               matchingJobSeeker={matchingJobSeeker}
                               
           />)
         }
-      </ul>
+      </div>
       </div>
     );
   }
