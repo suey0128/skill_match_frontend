@@ -3,7 +3,7 @@ import Chip from '@mui/material/Chip';
 import Stack from '@mui/material/Stack';
 
 import {useDispatch, useSelector} from 'react-redux';
-import {setEventListOnDisplay} from '../mainsSlice';
+import {setEventListOnDisplay, setShowMobileRecruiterInfo} from '../mainsSlice';
 
 const JobSeekersMatchSidebarMobile = () => {
     const dispatch = useDispatch();
@@ -12,6 +12,7 @@ const JobSeekersMatchSidebarMobile = () => {
   
     const handleClick = (matchingRecruiter) => {
       dispatch(setEventListOnDisplay(eventArr.filter(event => event.recruiter_id == matchingRecruiter.id)))
+      dispatch(setShowMobileRecruiterInfo(matchingRecruiter))
     }
 
     return (
