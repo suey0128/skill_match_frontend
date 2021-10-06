@@ -72,7 +72,6 @@ function EventsContainer() {
 
     // when a user clicks on edit - DONE!!
     const handleEventEdit = (id, name, date, location, desc) => {
-        // console.log(id, name, date, location, desc)
         setEventView("edit")
         setEventId(id)
         setEventName(name)
@@ -120,6 +119,7 @@ function EventsContainer() {
     const handleEventAdd = () => {
         setEventView("add")
     }
+
     // when a user clicks on save add - DONE!!
     const handleAddSave = (e) => {
         e.preventDefault()
@@ -143,26 +143,20 @@ function EventsContainer() {
         })
         .then(res => res.json())
         .then(data => {
-            // console.log(data)
             dispatch(setUserEvents([...userEvents, data]))
             setEventView("view")
-            // dispatch(setNeedFetchUser());
         })
     }
 
     // when a user clicks on delete - DONE!!
     const handleEventDelete = (deleteEvent, currentUser_id) => {
         //find the add_event.id
-
         let addEvent = currentUser.add_events.find(e=> e.event_id === deleteEvent.id && e.job_seeker_id === currentUser_id)
-        // console.log(addEvent.id)
         fetch(`http://localhost:3000/add_events/${addEvent.id}`, {
             method: "DELETE",
         })
         .catch(error => console.error('Error:', error))
         dispatch(setUserEvents(userEvents.filter(event => event.id !== deleteEvent.id)))
-        // dispatch(setEventListOnDisplay([...eventListOnDisplay, deleteEvent]))
-        // dispatch eventListOnDisplay - need to update with the new event
     }
 
     // when recruiter remove an event 
@@ -175,17 +169,18 @@ function EventsContainer() {
         dispatch(setNeedFetchUser());
     }
 
-    console.log('yo',userEvents)
-
     return (
       <div className="events-container">
         <div className="greeting-box">
             <h2>{`Hello, ${currentUser.name}`}</h2>
         </div>
 
-        {userEvents.length === 0 ? 
-        <h2 >You event list is empty, go add some!</h2> 
-        :
+        {/* {userEvents.length === 0 ? 
+        <div className="event-page-container-empty">
+            <h2 >You event list is empty</h2>
+            <button className="add-event" onClick={() => handleEventAdd()}>Add New Event</button>
+        </div> 
+        : */}
         <div className="event-page-container">
             {/* Event List starts */}
             {userStatus === "recruiter"
@@ -358,7 +353,7 @@ function EventsContainer() {
                 </div>
             }
         </div>
-        }
+        {/* } */}
       </div>
     );
   }
