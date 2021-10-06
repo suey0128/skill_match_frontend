@@ -1,5 +1,5 @@
 import {useDispatch, useSelector} from 'react-redux';
-import {setEventListOnDisplay} from '../mainsSlice'
+import {setEventListOnDisplay, setShowMobileRecruiterInfo} from '../mainsSlice'
 
 function JobSeekersMatchFilter() {
   const dispatch = useDispatch();
@@ -8,6 +8,7 @@ function JobSeekersMatchFilter() {
   
   const onAllMatchingEventBtnClick = () => {
     dispatch(setEventListOnDisplay(currentUser.all_matching_events_for_front_end))
+    dispatch(setShowMobileRecruiterInfo(null))
   }
 
   const onSearchChange=(input) => {

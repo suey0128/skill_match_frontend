@@ -21,6 +21,7 @@ const mainsSlice = createSlice({
         needFetchUser: false,
         viewProfile: true,
         showSidebar: false,
+        showMobileRecruiterInfo: null,
     },
     reducers: {
         setUserStatus(state, action) {
@@ -65,6 +66,9 @@ const mainsSlice = createSlice({
         setShowSidebar(state, action) {
             state.showSidebar = action.payload
         },
+        setShowMobileRecruiterInfo(state, action) {
+            state.showMobileRecruiterInfo = action.payload
+        },
     }
 })
 
@@ -84,6 +88,7 @@ const {
     setNeedFetchUser,
     setViewProfile,
     setShowSidebar,
+    setShowMobileRecruiterInfo,
 } = mainsSlice.actions;
 
 // Exports
@@ -103,6 +108,7 @@ export {
     setNeedFetchUser,
     setViewProfile,
     setShowSidebar,
+    setShowMobileRecruiterInfo,
 }
 
 export default mainsSlice.reducer;
