@@ -3,6 +3,8 @@ import {useSelector} from 'react-redux';
 
 function JobSeekersSideBarList() {
   const currentUser = useSelector(state => state.currentUser)
+  const eventListOnDisplay = useSelector(state => state.eventListOnDisplay)
+
     return (
       <div className="job-seekers-side-bar-list">
         <ul>

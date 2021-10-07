@@ -19,13 +19,21 @@ function JobSeekersMatchEventList() {
     .catch(error => console.error('Error:', error))
   }, [])
 
-  if (eventListOnDisplay.length === 0) return <h2>Sorry, currently there isn't any matching event for you. Please check back later </h2>
 
   return (
     <div className="match-event-list">
-      {eventListOnDisplay.map(matchingEvent => 
-        <JobSeekersEventItem key={matchingEvent.id} matchingEvent={matchingEvent}/>)
+      {
+        eventListOnDisplay.length !== 0 ? 
+        (eventListOnDisplay.map(matchingEvent => 
+          <JobSeekersEventItem key={matchingEvent.id} matchingEvent={matchingEvent}/>))
+         : 
+        (currentUser.all_matching_events_for_front_end.length === 0 ? 
+        <h2>Sorry, currently there isn't any matching event for you. Please check back later. </h2>
+        :
+        <h2>You are going to all the events from this recruiter, please go to your event page to see event details.</h2>
+        )
       }
+
     </div>
   )
   }
