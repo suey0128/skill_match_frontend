@@ -22,6 +22,7 @@ const mainsSlice = createSlice({
         viewProfile: true,
         showSidebar: false,
         showMobileRecruiterInfo: null,
+        matchingEventLeft: [],
     },
     reducers: {
         setUserStatus(state, action) {
@@ -69,6 +70,9 @@ const mainsSlice = createSlice({
         setShowMobileRecruiterInfo(state, action) {
             state.showMobileRecruiterInfo = action.payload
         },
+        setMatchingEventLeft(state, action) {
+            state.matchingEventLeft = action.payload
+        },
     }
 })
 
@@ -89,6 +93,7 @@ const {
     setViewProfile,
     setShowSidebar,
     setShowMobileRecruiterInfo,
+    setMatchingEventLeft,
 } = mainsSlice.actions;
 
 // Exports
@@ -109,6 +114,7 @@ export {
     setViewProfile,
     setShowSidebar,
     setShowMobileRecruiterInfo,
+    setMatchingEventLeft,
 }
 
 export default mainsSlice.reducer;
