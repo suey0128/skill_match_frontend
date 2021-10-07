@@ -5,10 +5,10 @@ import Chip from '@mui/material/Chip';
 
 function JobSeekersSideBarItem({matchingRecruiter}) {
   const dispatch = useDispatch();
-  const eventArr = useSelector(state => state.eventArr);
+  const currentUser = useSelector(state => state.currentUser);
 
   const onSideBarItemClick = () => {
-    dispatch(setEventListOnDisplay(eventArr.filter(event => event.recruiter_id === matchingRecruiter.id)))
+    dispatch(setEventListOnDisplay(currentUser.all_matching_events_for_front_end.filter(event => event.recruiter_id === matchingRecruiter.id)))
   }
 
 
