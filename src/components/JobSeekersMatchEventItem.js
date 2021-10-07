@@ -1,11 +1,11 @@
 import {useSelector, useDispatch} from 'react-redux';
-import {setEventListOnDisplay} from '../mainsSlice';
+import {setEventListOnDisplay, setMatchingEventLeft} from '../mainsSlice';
 import fetchPort from '../fetchPort';
-import { makeStyles } from '@material-ui/core';
 
 function JobSeekersMatchEventItem({ matchingEvent }) {
   const dispatch = useDispatch();
   const currentUser = useSelector(state => state.currentUser)
+  const matchingEventLeft = useSelector(state => state.matchingEventLeft)
   const eventListOnDisplay = useSelector(state => state.eventListOnDisplay)
 
   const addJobSeekerEvent = (jobseeker_id, event_obj) => {
@@ -21,6 +21,7 @@ function JobSeekersMatchEventItem({ matchingEvent }) {
           })
     })
     //update state on matching eventlist 
+    dispatch(setMatchingEventLeft(matchingEventLeft.filter(matchingEvent => matchingEvent.id !== event_obj.id)));
     dispatch(setEventListOnDisplay(eventListOnDisplay.filter(matchingEvent => matchingEvent.id !== event_obj.id)));
   }
 
